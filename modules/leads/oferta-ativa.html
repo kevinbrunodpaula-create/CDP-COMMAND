@@ -1,0 +1,145 @@
+    <!-- OFERTA ATIVA -->
+    <div class="page" id="page-oferta-ativa">
+      <div class="oa-header">
+        <div>
+          <div style="font-size:15px;font-weight:600;letter-spacing:-0.02em">⚡ Oferta Ativa</div>
+          <div style="font-size:11px;color:#94A3B8;margin-top:2px">Prospecção direta — ligue, ative ou descarte</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <div class="oa-tabs">
+            <button class="oa-tab active" id="oa-tab-fila" onclick="oaMudarAba('fila')">Fila</button>
+            <button class="oa-tab" id="oa-tab-descartados" onclick="oaMudarAba('descartados')">Descartados</button>
+            <button class="oa-tab" id="oa-tab-ativados" onclick="oaMudarAba('ativados')">Ativados</button>
+          </div>
+          <button class="btn-p" onclick="oaAbrirImportar()" style="font-size:11px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.3);color:#FCD34D">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Importar lista
+          </button>
+          <button class="btn-p" onclick="oaAbrirAddManual()" style="font-size:11px">
+            + Adicionar
+          </button>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="oa-kpis">
+        <div class="oa-kpi"><div class="oa-kpi-val" id="oa-k-fila" style="color:#FCD34D">0</div><div class="oa-kpi-lbl">Na fila</div></div>
+        <div class="oa-kpi"><div class="oa-kpi-val" id="oa-k-ativados" style="color:#22C55E">0</div><div class="oa-kpi-lbl">Ativados</div></div>
+        <div class="oa-kpi"><div class="oa-kpi-val" id="oa-k-descartados" style="color:#EF4444">0</div><div class="oa-kpi-lbl">Descartados</div></div>
+        <div class="oa-kpi"><div class="oa-kpi-val" id="oa-k-taxa" style="color:#F59E0B">0%</div><div class="oa-kpi-lbl">Taxa de ativação</div></div>
+        <div class="oa-kpi"><div class="oa-kpi-val" id="oa-k-ligados">0</div><div class="oa-kpi-lbl">Ligações hoje</div></div>
+      </div>
+
+      <!-- Aba: Fila -->
+      <div id="oa-aba-fila">
+        <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap">
+          <!-- Card prospecto em discagem -->
+          <div style="flex:1.4;min-width:280px">
+            <div id="oa-prospecto-ativo"></div>
+            <div class="disc-hist" id="oa-hist-wrap" style="display:none;margin-top:10px">
+              <div class="disc-hist-hd">Histórico desta sessão</div>
+              <div id="oa-hist-lista"></div>
+            </div>
+          </div>
+          <!-- Lista da fila -->
+          <div style="flex:1;min-width:260px">
+            <div class="oa-lista-wrap">
+              <div class="oa-lista-hd">
+                <span class="oa-lista-hd-txt">Prospectos na fila</span>
+                <div style="display:flex;align-items:center;gap:8px">
+                  <input type="text" class="s-inp" id="oa-search" placeholder="Buscar..." oninput="renderOA()" style="width:120px;height:26px;font-size:11px">
+                  <span id="oa-fila-count" style="font-size:10px;color:#94A3B8">0</span>
+                </div>
+              </div>
+              <div id="oa-lista-fila" style="max-height:500px;overflow-y:auto"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aba: Descartados -->
+      <div id="oa-aba-descartados" style="display:none">
+        <div class="oa-lista-wrap">
+          <div class="oa-lista-hd">
+            <span class="oa-lista-hd-txt">Prospectos descartados</span>
+            <span id="oa-desc-count" style="font-size:10px;color:#94A3B8">0</span>
+          </div>
+          <div style="background:rgba(34,197,94,0.05);border-bottom:1px solid rgba(34,197,94,0.1);padding:10px 16px;font-size:11px;color:#86EFAC">
+            💡 Descartados voltam para a fila ao clicar em <strong>Restaurar</strong>. Leads ativados não aparecem aqui.
+          </div>
+          <div id="oa-lista-descartados" style="max-height:600px;overflow-y:auto"></div>
+        </div>
+      </div>
+
+      <!-- Aba: Ativados -->
+      <div id="oa-aba-ativados" style="display:none">
+        <div class="oa-lista-wrap">
+          <div class="oa-lista-hd">
+            <span class="oa-lista-hd-txt">Leads ativados — foram para o CRM</span>
+            <span id="oa-atv-count" style="font-size:10px;color:#22C55E">0</span>
+          </div>
+          <div id="oa-lista-ativados" style="max-height:600px;overflow-y:auto"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ╔══════════════════════════════════════╗ -->
+    <!-- ║        PÁGINA: FILA IA               ║ -->
+    <!-- ╚══════════════════════════════════════╝ -->
+    <div class="page" id="page-fila-ia">
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px;">
+        <div>
+          <div style="font-size:15px;font-weight:600;letter-spacing:-0.02em;color:#F0FDF4">Fila de Aprovação IA</div>
+          <div style="font-size:11px;color:#64748B;margin-top:2px">Conteúdos gerados pelos corretores via WhatsApp aguardando sua aprovação</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <div id="fia-tabs" style="display:flex;background:#080C0A;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:3px;gap:2px;">
+            <button onclick="fiaSetFiltro('aguardando_aprovacao',this)" class="fia-tab-btn active" style="padding:5px 12px;border-radius:6px;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;border:none;background:rgba(34,197,94,0.12);color:#86EFAC;transition:all .15s;">Pendentes <span id="fia-count-pend" style="opacity:.7"></span></button>
+            <button onclick="fiaSetFiltro('aprovado',this)" class="fia-tab-btn" style="padding:5px 12px;border-radius:6px;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;border:none;background:transparent;color:#64748B;transition:all .15s;">Aprovados</button>
+            <button onclick="fiaSetFiltro('rejeitado',this)" class="fia-tab-btn" style="padding:5px 12px;border-radius:6px;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;border:none;background:transparent;color:#64748B;transition:all .15s;">Rejeitados</button>
+          </div>
+          <button onclick="carregarFilaIA()" style="padding:7px 10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:7px;color:#64748B;cursor:pointer;font-size:11px;display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif;" title="Atualizar">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+            Atualizar
+          </button>
+        </div>
+      </div>
+
+      <!-- KPIs resumo -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;" id="fia-kpis">
+        <div style="background:#080C0A;border:1px solid rgba(34,197,94,0.1);border-radius:12px;padding:14px 16px;">
+          <div id="fia-k-pend" style="font-size:22px;font-weight:700;color:#86EFAC;font-family:'DM Mono',monospace;letter-spacing:-0.03em">—</div>
+          <div style="font-size:10px;color:#64748B;margin-top:3px;text-transform:uppercase;letter-spacing:.06em">Aguardando</div>
+        </div>
+        <div style="background:#080C0A;border:1px solid rgba(34,197,94,0.1);border-radius:12px;padding:14px 16px;">
+          <div id="fia-k-aprov" style="font-size:22px;font-weight:700;color:#22C55E;font-family:'DM Mono',monospace;letter-spacing:-0.03em">—</div>
+          <div style="font-size:10px;color:#64748B;margin-top:3px;text-transform:uppercase;letter-spacing:.06em">Aprovados hoje</div>
+        </div>
+        <div style="background:#080C0A;border:1px solid rgba(34,197,94,0.1);border-radius:12px;padding:14px 16px;">
+          <div id="fia-k-rej" style="font-size:22px;font-weight:700;color:#EF4444;font-family:'DM Mono',monospace;letter-spacing:-0.03em">—</div>
+          <div style="font-size:10px;color:#64748B;margin-top:3px;text-transform:uppercase;letter-spacing:.06em">Rejeitados hoje</div>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div id="fia-loading" style="text-align:center;padding:48px;color:#64748B;font-size:12px;">
+        <div style="width:28px;height:28px;border:2px solid rgba(34,197,94,0.15);border-top-color:#22C55E;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px;"></div>
+        Carregando fila...
+      </div>
+
+      <!-- Empty state -->
+      <div id="fia-empty" style="display:none;text-align:center;padding:64px 24px;">
+        <div style="font-size:36px;margin-bottom:12px;">✨</div>
+        <div style="font-size:14px;font-weight:500;color:#F0FDF4;margin-bottom:6px;">Nenhum item pendente</div>
+        <div style="font-size:12px;color:#64748B;">Os corretores ainda não enviaram pedidos via WhatsApp, ou você já aprovou tudo.</div>
+      </div>
+
+      <!-- Cards da fila -->
+      <div id="fia-grid" style="display:none;display:flex;flex-direction:column;gap:12px;"></div>
+
+    </div>
+
+  </main>
+</div>
+

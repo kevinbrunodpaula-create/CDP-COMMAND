@@ -1,0 +1,69 @@
+<!--
+  CDP — COMMAND SCORE ENGINE
+  Tela: KR7 Command → Consultores
+  SPR-003 · KR7 Command Manager
+-->
+<div class="page" id="page-command-manager">
+  <div class="mg-wrap">
+
+    <div class="mg-header">
+      <div class="mg-header-left">
+        <div class="mg-header-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="mg-header-title">Score Engine</div>
+            <span style="font-size:9px;font-family:'DM Mono',monospace;color:rgba(167,139,250,0.8);background:rgba(167,139,250,0.07);border:1px solid rgba(167,139,250,0.15);padding:2px 7px;border-radius:5px;letter-spacing:0.08em">CONSULTORES</span>
+          </div>
+          <div class="mg-header-sub">// KR7 COMMAND · PERFORMANCE DA EQUIPE</div>
+          <div class="mg-header-meta" id="mg-header-meta">Aguardando cálculo…</div>
+        </div>
+      </div>
+      <button class="mg-btn-calcular" id="mg-btn-calcular" onclick="mgCalcular()">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+        </svg>
+        Calcular Scores
+      </button>
+    </div>
+
+    <div class="mg-state" id="mg-state-loading" style="display:flex">
+      <div class="mg-spinner"></div>
+      <div class="mg-state-title">Calculando scores…</div>
+      <div class="mg-state-sub">O COMMAND está analisando a performance de cada consultor.</div>
+    </div>
+    <div class="mg-state" id="mg-state-empty" style="display:none">
+      <div class="mg-state-icon">👥</div>
+      <div class="mg-state-title">Nenhum consultor encontrado</div>
+      <div class="mg-state-sub">Cadastre corretores no CRM para ativar o Score Engine.</div>
+    </div>
+    <div class="mg-state" id="mg-state-error" style="display:none">
+      <div class="mg-state-icon">⚠️</div>
+      <div class="mg-state-title">Erro no cálculo</div>
+      <div class="mg-state-sub" id="mg-error-msg">Verifique a conexão.</div>
+    </div>
+
+    <div id="mg-conteudo" style="display:none">
+      <div id="mg-team-bar" class="mg-team-bar"></div>
+      <div class="mg-filters">
+        <div class="mg-filter-group">
+          <div class="mg-filter-label">Nível</div>
+          <select class="mg-filter-select" id="mg-f-nivel" onchange="mgAplicarFiltros()">
+            <option value="">Todos</option>
+          </select>
+        </div>
+        <div class="mg-filter-group" style="flex:1;min-width:180px">
+          <div class="mg-filter-label">Pesquisar</div>
+          <input type="text" class="mg-filter-input" id="mg-f-busca" placeholder="Nome do consultor…" oninput="mgAplicarFiltros()">
+        </div>
+        <button class="mg-btn-limpar" onclick="mgLimparFiltros()">Limpar</button>
+        <span class="mg-result-count" id="mg-result-count">—</span>
+      </div>
+      <div class="mg-grid" id="mg-grid"></div>
+    </div>
+
+  </div>
+</div>

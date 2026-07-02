@@ -1,0 +1,117 @@
+/**
+ * CDP — COMMAND DNA 2.0
+ * DNAPanel.css — Estilos completos do painel DNA 2.0
+ */
+
+/* ── Wrapper ── */
+.dna2-wrap { display:flex; flex-direction:column; gap:16px; }
+
+/* ── Header ── */
+.dna2-header { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.dna2-header-left { display:flex; align-items:center; gap:10px; }
+.dna2-header-icon { width:34px; height:34px; border-radius:10px; background:rgba(20,184,166,0.1); border:1px solid rgba(20,184,166,0.22); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.dna2-title { font-size:15px; font-weight:600; color:var(--text-primary); letter-spacing:-0.03em; }
+.dna2-sub { font-size:10px; color:var(--text-muted); margin-top:2px; font-family:'DM Mono',monospace; letter-spacing:0.06em; text-transform:uppercase; }
+.dna2-badge { font-size:9px; padding:2px 7px; background:rgba(20,184,166,0.1); border:1px solid rgba(20,184,166,0.25); border-radius:5px; color:#14B8A6; font-family:'DM Mono',monospace; letter-spacing:0.05em; }
+
+/* ── Botão atualizar ── */
+.dna2-btn-calc { display:inline-flex; align-items:center; gap:7px; padding:9px 16px; background:linear-gradient(135deg,rgba(20,184,166,0.18),rgba(20,184,166,0.07)); border:1px solid rgba(20,184,166,0.3); border-radius:10px; color:#5EEAD4; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; cursor:pointer; transition:all .2s; white-space:nowrap; }
+.dna2-btn-calc:hover { background:linear-gradient(135deg,rgba(20,184,166,0.28),rgba(20,184,166,0.14)); border-color:rgba(20,184,166,0.5); }
+.dna2-btn-calc:disabled { opacity:.5; cursor:not-allowed; }
+
+/* ── Estados ── */
+.dna2-state { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:52px 24px; text-align:center; }
+.dna2-spinner { width:22px; height:22px; border:2px solid rgba(20,184,166,0.1); border-top-color:#14B8A6; border-radius:50%; animation:dna2-spin .75s linear infinite; }
+@keyframes dna2-spin { to { transform:rotate(360deg) } }
+.dna2-state-title { font-size:13px; font-weight:500; color:var(--text-tertiary); }
+
+/* ── Seletor de consultor ── */
+.dna2-sel { width:100%; padding:9px 14px; background:var(--bg-input); border:1px solid rgba(20,184,166,0.15); border-radius:10px; color:var(--text-primary); font-family:'DM Sans',sans-serif; font-size:13px; outline:none; appearance:none; -webkit-appearance:none; cursor:pointer; }
+
+/* ── Card principal do consultor ── */
+.dna2-card { background:var(--bg-card); border:1px solid rgba(20,184,166,0.1); border-radius:var(--card-radius); overflow:hidden; }
+.dna2-card-hero { padding:18px 20px; background:linear-gradient(135deg,rgba(20,184,166,0.06),rgba(20,184,166,0.02)); border-bottom:1px solid rgba(20,184,166,0.08); display:flex; align-items:center; gap:14px; }
+.dna2-avatar { width:52px; height:52px; border-radius:15px; background:rgba(20,184,166,0.1); border:2px solid rgba(20,184,166,0.3); display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700; color:#14B8A6; flex-shrink:0; font-family:'DM Mono',monospace; }
+.dna2-nome { font-size:16px; font-weight:700; color:var(--text-primary); letter-spacing:-0.03em; }
+.dna2-cargo { font-size:11px; color:var(--text-muted); margin-top:2px; }
+.dna2-nivel-badge { display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:7px; font-size:11px; font-weight:600; }
+
+/* ── Score geral ── */
+.dna2-score-ring { position:relative; width:80px; height:80px; flex-shrink:0; }
+.dna2-score-ring svg { transform:rotate(-90deg); }
+.dna2-score-val { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; font-family:'DM Sans',sans-serif; }
+.dna2-score-num { font-size:22px; font-weight:700; color:#14B8A6; letter-spacing:-0.04em; line-height:1; }
+.dna2-score-lbl { font-size:8px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace; }
+
+/* ── Seções ── */
+.dna2-section { padding:16px 20px; border-bottom:1px solid var(--border); }
+.dna2-section:last-child { border-bottom:none; }
+.dna2-section-title { font-size:10px; font-weight:500; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.09em; font-family:'DM Mono',monospace; margin-bottom:12px; }
+
+/* ── 8 Scores em grid ── */
+.dna2-scores-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+@media(max-width:600px) { .dna2-scores-grid { grid-template-columns:repeat(2,1fr); } }
+.dna2-score-box { background:var(--bg-input); border:1px solid var(--border); border-radius:10px; padding:10px 12px; }
+.dna2-score-box-lbl { font-size:9px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace; margin-bottom:5px; }
+.dna2-score-box-val { font-size:20px; font-weight:700; font-family:'DM Sans',sans-serif; letter-spacing:-0.04em; }
+.dna2-bar-bg { height:3px; background:var(--border); border-radius:2px; overflow:hidden; margin-top:5px; }
+.dna2-bar-fill { height:100%; border-radius:2px; transition:width .6s ease; }
+
+/* ── 8 Índices de especialidade ── */
+.dna2-indices-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+@media(max-width:600px) { .dna2-indices-grid { grid-template-columns:repeat(2,1fr); } }
+.dna2-idx-box { background:var(--bg-input); border:1px solid var(--border); border-radius:10px; padding:10px; text-align:center; }
+.dna2-idx-emoji { font-size:18px; margin-bottom:4px; }
+.dna2-idx-nome { font-size:9px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; font-family:'DM Mono',monospace; margin-bottom:4px; }
+.dna2-idx-val { font-size:18px; font-weight:700; font-family:'DM Sans',sans-serif; letter-spacing:-0.04em; color:#A5B4FC; }
+
+/* ── DNA Vivo ── */
+.dna2-vivo-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+@media(max-width:500px) { .dna2-vivo-grid { grid-template-columns:1fr; } }
+.dna2-vivo-item { background:var(--bg-input); border:1px solid var(--border); border-radius:10px; padding:10px 12px; display:flex; align-items:center; gap:10px; }
+.dna2-vivo-icon { font-size:18px; flex-shrink:0; }
+.dna2-vivo-lbl { font-size:9px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em; font-family:'DM Mono',monospace; }
+.dna2-vivo-val { font-size:13px; font-weight:600; color:var(--text-title); margin-top:2px; }
+
+/* ── Gráfico de evolução ── */
+.dna2-chart { display:flex; gap:6px; align-items:flex-end; height:70px; }
+.dna2-chart-col { display:flex; flex-direction:column; align-items:center; gap:3px; flex:1; }
+.dna2-chart-bar-bg { width:100%; background:rgba(20,184,166,0.06); border-radius:3px; display:flex; align-items:flex-end; overflow:hidden; flex:1; min-height:40px; }
+.dna2-chart-bar { width:100%; border-radius:3px 3px 0 0; background:rgba(20,184,166,0.5); transition:height .5s ease; min-height:2px; }
+.dna2-chart-lbl { font-size:8px; color:var(--text-placeholder); font-family:'DM Mono',monospace; }
+.dna2-chart-val { font-size:9px; color:#14B8A6; font-weight:600; }
+
+/* ── Matcher de compatibilidade ── */
+.dna2-match-list { display:flex; flex-direction:column; gap:6px; }
+.dna2-match-item { display:flex; align-items:center; gap:10px; padding:10px 14px; background:var(--bg-input); border:1px solid var(--border); border-radius:10px; }
+.dna2-match-pos { width:22px; font-family:'DM Mono',monospace; font-size:11px; color:var(--text-tertiary); font-weight:600; flex-shrink:0; }
+.dna2-match-nome { flex:1; font-size:12px; font-weight:500; color:var(--text-primary); }
+.dna2-match-pct { font-size:18px; font-weight:700; font-family:'DM Sans',sans-serif; letter-spacing:-0.04em; flex-shrink:0; }
+.dna2-match-stars { font-size:10px; color:#FBBF24; flex-shrink:0; }
+.dna2-match-motivos { margin-top:4px; display:flex; gap:4px; flex-wrap:wrap; }
+.dna2-match-motivo { font-size:9px; padding:2px 7px; background:rgba(20,184,166,0.06); border:1px solid rgba(20,184,166,0.15); border-radius:5px; color:#5EEAD4; }
+
+/* ── Questionário ── */
+.dna2-q-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:5000; display:flex; align-items:flex-start; justify-content:center; padding:20px; overflow-y:auto; animation:dna2-fade .2s ease; }
+@keyframes dna2-fade { from{opacity:0} to{opacity:1} }
+.dna2-q-modal { background:var(--bg-card); border:1px solid rgba(20,184,166,0.2); border-radius:18px; width:100%; max-width:560px; overflow:hidden; animation:dna2-slide .25s cubic-bezier(.22,.68,0,1.2); }
+@keyframes dna2-slide { from{transform:translateY(30px);opacity:0} to{transform:translateY(0);opacity:1} }
+.dna2-q-header { padding:20px 24px 16px; border-bottom:1px solid var(--border); }
+.dna2-q-titulo { font-size:16px; font-weight:700; color:var(--text-primary); }
+.dna2-q-sub { font-size:11px; color:var(--text-muted); margin-top:4px; }
+.dna2-q-progress-bg { height:3px; background:var(--border); border-radius:2px; margin-top:12px; overflow:hidden; }
+.dna2-q-progress-fill { height:100%; background:#14B8A6; border-radius:2px; transition:width .3s ease; }
+.dna2-q-body { padding:20px 24px; }
+.dna2-q-cat { font-size:9px; color:#14B8A6; text-transform:uppercase; letter-spacing:0.1em; font-family:'DM Mono',monospace; margin-bottom:6px; }
+.dna2-q-pergunta { font-size:14px; font-weight:600; color:var(--text-primary); margin-bottom:14px; line-height:1.5; }
+.dna2-q-opcao { display:block; width:100%; padding:11px 16px; background:var(--bg-card); border:1.5px solid var(--border); border-radius:10px; color:var(--text-secondary); font-family:'DM Sans',sans-serif; font-size:12.5px; cursor:pointer; text-align:left; transition:all .15s; margin-bottom:8px; }
+.dna2-q-opcao:hover { border-color:rgba(20,184,166,0.3); color:var(--text-primary); background:var(--bg-secondary); }
+.dna2-q-opcao.selected { border-color:#14B8A6; background:rgba(20,184,166,0.08); color:#5EEAD4; font-weight:500; }
+.dna2-q-footer { padding:16px 24px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.dna2-q-info { font-size:11px; color:var(--text-tertiary); font-family:'DM Mono',monospace; }
+.dna2-q-btn { padding:10px 20px; border-radius:9px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; cursor:pointer; border:none; transition:all .15s; }
+.dna2-q-btn-prim { background:#14B8A6; color:#000; }
+.dna2-q-btn-prim:hover { background:#0D9488; }
+.dna2-q-btn-sec { background:transparent; color:var(--text-muted); border:1px solid var(--divider); }
+.dna2-q-btn-sec:hover { color:var(--text-secondary); }
+.dna2-q-btn:disabled { opacity:.4; cursor:not-allowed; }

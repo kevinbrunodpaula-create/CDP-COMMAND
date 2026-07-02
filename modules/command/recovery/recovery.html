@@ -1,0 +1,174 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  CDP — COMMAND RECOVERY ENGINE                               ║
+  ║  Tela: KR7 Command → Recovery                                ║
+  ║  SPR-002 · KR7 Command Recovery                              ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<div class="page" id="page-command-recovery">
+  <div class="rc-wrap">
+
+    <!-- ══ HEADER ══ -->
+    <div class="rc-header">
+      <div class="rc-header-left">
+        <div class="rc-header-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+          </svg>
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="rc-header-title">Command Recovery</div>
+            <span style="font-size:9px;font-family:'DM Mono',monospace;color:rgba(249,115,22,0.7);background:rgba(249,115,22,0.06);border:1px solid rgba(249,115,22,0.12);padding:2px 7px;border-radius:5px;letter-spacing:0.08em">MONITOR</span>
+          </div>
+          <div class="rc-header-sub">// KR7 COMMAND · CARTEIRA DE LEADS</div>
+          <div class="rc-header-meta" id="rc-header-meta">Aguardando análise…</div>
+        </div>
+      </div>
+      <button class="rc-btn-analisar" id="rc-btn-analisar" onclick="rcExecutarAnalise()">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        Executar Análise
+      </button>
+    </div>
+
+    <!-- ══ ESTADOS ══ -->
+    <div class="rc-state" id="rc-state-loading" style="display:flex">
+      <div class="rc-spinner"></div>
+      <div class="rc-state-title">Analisando carteira…</div>
+      <div class="rc-state-sub">O COMMAND está processando todos os leads ativos.</div>
+    </div>
+
+    <div class="rc-state" id="rc-state-empty" style="display:none">
+      <div class="rc-state-icon">📭</div>
+      <div class="rc-state-title">Nenhum lead ativo encontrado</div>
+      <div class="rc-state-sub">Cadastre leads no CRM para iniciar o monitoramento.</div>
+    </div>
+
+    <div class="rc-state" id="rc-state-error" style="display:none">
+      <div class="rc-state-icon">⚠️</div>
+      <div class="rc-state-title">Erro na análise</div>
+      <div class="rc-state-sub" id="rc-error-msg">Verifique a conexão com o banco de dados.</div>
+      <button class="rc-btn-analisar" style="margin-top:8px" onclick="rcExecutarAnalise()">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+        </svg>
+        Tentar novamente
+      </button>
+    </div>
+
+    <!-- ══ CONTEÚDO PRINCIPAL ══ -->
+    <div id="rc-conteudo" style="display:none">
+
+      <!-- ── KPIs de Resumo ── -->
+      <div class="rc-summary" id="rc-summary">
+        <!-- preenchido por rcRenderResumo() -->
+      </div>
+
+      <!-- ── Filtros ── -->
+      <div class="rc-filters">
+        <div class="rc-filters-row">
+
+          <div class="rc-filter-group">
+            <div class="rc-filter-label">Consultor</div>
+            <select class="rc-filter-select" id="rc-f-consultor" onchange="rcAplicarFiltros()">
+              <option value="">Todos</option>
+            </select>
+          </div>
+
+          <div class="rc-filter-group">
+            <div class="rc-filter-label">Origem</div>
+            <select class="rc-filter-select" id="rc-f-origem" onchange="rcAplicarFiltros()">
+              <option value="">Todas</option>
+            </select>
+          </div>
+
+          <div class="rc-filter-group">
+            <div class="rc-filter-label">Etapa do funil</div>
+            <select class="rc-filter-select" id="rc-f-status" onchange="rcAplicarFiltros()">
+              <option value="">Todas</option>
+            </select>
+          </div>
+
+          <div class="rc-filter-group">
+            <div class="rc-filter-label">Classificação</div>
+            <select class="rc-filter-select" id="rc-f-classificacao" onchange="rcAplicarFiltros()">
+              <option value="">Todas</option>
+              <option value="SAUDAVEL">🟢 Saudável</option>
+              <option value="ATENCAO">🟡 Atenção</option>
+              <option value="EM_RISCO">🟠 Em Risco</option>
+              <option value="CRITICO">🔴 Crítico</option>
+              <option value="ABANDONADO">⚫ Abandonado</option>
+            </select>
+          </div>
+
+          <div class="rc-filter-group">
+            <div class="rc-filter-label">Mín. dias parado</div>
+            <select class="rc-filter-select" id="rc-f-dias" onchange="rcAplicarFiltros()">
+              <option value="">Qualquer</option>
+              <option value="3">3+ dias</option>
+              <option value="7">7+ dias</option>
+              <option value="15">15+ dias</option>
+              <option value="30">30+ dias</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="rc-filters-row">
+          <div class="rc-filter-group" style="flex:2;min-width:200px">
+            <div class="rc-filter-label">Pesquisar por nome ou corretor</div>
+            <input type="text"
+                   class="rc-filter-input"
+                   id="rc-f-busca"
+                   placeholder="Digite para filtrar…"
+                   oninput="rcAplicarFiltros()">
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:8px;flex-shrink:0">
+            <button class="rc-btn-limpar" onclick="rcLimparFiltros()">Limpar filtros</button>
+            <span class="rc-result-count" id="rc-result-count">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Tabela — desktop ── -->
+      <div class="rc-table-wrap">
+        <table class="rc-table">
+          <thead>
+            <tr>
+              <th>Lead</th>
+              <th>Corretor</th>
+              <th>Origem</th>
+              <th>Etapa</th>
+              <th>Dias parado</th>
+              <th>Classificação</th>
+              <th>Motivo</th>
+              <th>Ação recomendada</th>
+            </tr>
+          </thead>
+          <tbody id="rc-tbody">
+            <!-- preenchido por rcRenderTabela() -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── Cards — mobile ── -->
+      <div class="rc-cards-mobile" id="rc-cards-mobile">
+        <!-- preenchido por rcRenderTabela() -->
+      </div>
+
+      <!-- ── Histórico de Análises ── -->
+      <div class="rc-history">
+        <div class="rc-history-title">// Histórico de análises</div>
+        <div id="rc-history-list">
+          <div class="rc-history-item">
+            <span class="rc-history-desc" style="color:#374151">Carregando histórico…</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /rc-conteudo -->
+
+  </div><!-- /rc-wrap -->
+</div>

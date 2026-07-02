@@ -1,0 +1,33 @@
+    <!-- CONFIG -->
+    <div class="page" id="page-config">
+      <div class="cfg-grid">
+        <div class="cfg-card">
+          <div class="cfg-title">Supabase — Conectado</div>
+          <div style="background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.1);border-radius:10px;padding:13px;margin-bottom:14px">
+            <div style="font-size:12px;font-weight:500;color:#22C55E;margin-bottom:5px">Banco de dados ativo</div>
+            <div style="font-size:11px;font-weight:400;color:#94A3B8">Projeto: <span style="color:#94A3B8">cdp-crm</span></div>
+          </div>
+          <button class="btn-p" style="width:100%;font-size:12px;justify-content:center" onclick="loadAll();showToast('Sincronizado!','success')">Sincronizar dados</button>
+        </div>
+        <div class="cfg-card">
+          <div class="cfg-title">Notificações</div>
+          <div class="tgr"><div><div class="tgl">Follow-up automático</div><div class="tgs">Alerta leads parados</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+          <div class="tgr"><div><div class="tgl">Aniversários</div><div class="tgs">Mensagem automática</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+          <div class="tgr"><div><div class="tgl">Meta diária</div><div class="tgs">Aviso de progresso</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        </div>
+        <div class="cfg-card">
+          <div class="cfg-title">Hierarquia de Aprovação</div>
+          <div style="display:flex;flex-direction:column;gap:7px;font-size:12px">
+            <div style="background:#080C0A;border-radius:6px;padding:10px 12px;display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,0.04)"><span class="cargo-badge cb-ceo">CEO</span><span style="color:#94A3B8;font-weight:400">Aprova: Diretores</span></div>
+            <div style="background:#080C0A;border-radius:6px;padding:10px 12px;display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,0.04)"><span class="cargo-badge cb-dir">Diretor</span><span style="color:#94A3B8;font-weight:400">Aprova: Gerentes e Corretores</span></div>
+            <div style="background:#080C0A;border-radius:6px;padding:10px 12px;display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,0.04)"><span class="cargo-badge cb-ger">Gerente</span><span style="color:#94A3B8;font-weight:400">Aprova: Corretores</span></div>
+            <div style="background:#080C0A;border-radius:6px;padding:10px 12px;display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,0.04)"><span class="cargo-badge cb-cor">Corretor</span><span style="color:#94A3B8;font-weight:400">Sem poder de aprovação</span></div>
+          </div>
+        </div>
+        <div class="cfg-card">
+          <div class="cfg-title">Aparência</div>
+          <div class="tgr"><div><div class="tgl">Dark Mode</div><div class="tgs">Tema escuro</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+          <div class="tgr"><div><div class="tgl">Animações</div><div class="tgs">Efeitos visuais</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+        </div>
+      </div>
+    </div>

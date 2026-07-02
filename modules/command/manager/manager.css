@@ -1,0 +1,245 @@
+/**
+ * CDP — COMMAND SCORE ENGINE
+ * Estilos da tela Manager / Consultores
+ * SPR-003 · KR7 Command Manager
+ */
+
+/* ─────────────────────────────────────────────
+   WRAPPER
+───────────────────────────────────────────── */
+.mg-wrap { display:flex; flex-direction:column; gap:16px; }
+
+/* ─────────────────────────────────────────────
+   HEADER
+───────────────────────────────────────────── */
+.mg-header {
+  display:flex; align-items:flex-start; justify-content:space-between;
+  gap:12px; flex-wrap:wrap;
+}
+.mg-header-left { display:flex; align-items:center; gap:10px; }
+.mg-header-icon {
+  width:34px; height:34px; border-radius:10px;
+  background:rgba(167,139,250,0.08); border:1px solid rgba(167,139,250,0.2);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.mg-header-icon svg {
+  width:16px; height:16px; stroke:#A78BFA; stroke-width:1.6;
+  fill:none; stroke-linecap:round; stroke-linejoin:round;
+}
+.mg-header-title { font-size:15px; font-weight:600; color:var(--text-primary); letter-spacing:-0.03em; }
+.mg-header-sub { font-size:10px; color:var(--text-muted); margin-top:2px; font-family:'DM Mono',monospace; letter-spacing:0.06em; text-transform:uppercase; }
+.mg-header-meta { font-size:10px; color:var(--text-tertiary); font-family:'DM Mono',monospace; margin-top:2px; }
+
+/* ─────────────────────────────────────────────
+   BOTÃO CALCULAR
+───────────────────────────────────────────── */
+.mg-btn-calcular {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:9px 18px;
+  background:linear-gradient(135deg,rgba(167,139,250,0.16),rgba(167,139,250,0.07));
+  border:1px solid rgba(167,139,250,0.3); border-radius:10px;
+  color:#C4B5FD; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600;
+  cursor:pointer; transition:all .2s; white-space:nowrap; letter-spacing:-0.01em; flex-shrink:0;
+}
+.mg-btn-calcular:hover { background:linear-gradient(135deg,rgba(167,139,250,0.26),rgba(167,139,250,0.12)); border-color:rgba(167,139,250,0.5); color:#DDD6FE; }
+.mg-btn-calcular:disabled { opacity:.5; cursor:not-allowed; }
+.mg-btn-calcular svg { width:14px; height:14px; stroke:currentColor; stroke-width:1.8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+
+/* ─────────────────────────────────────────────
+   SCORE MÉDIO DA EQUIPE
+───────────────────────────────────────────── */
+.mg-team-bar {
+  background:var(--bg-card); border:1px solid rgba(167,139,250,0.08); border-radius:14px;
+  padding:16px 20px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+}
+.mg-team-score-val { font-size:36px; font-weight:700; color:#A78BFA; letter-spacing:-0.05em; font-family:'DM Sans',sans-serif; line-height:1; }
+.mg-team-score-lbl { font-size:11px; color:var(--text-muted); font-family:'DM Mono',monospace; text-transform:uppercase; letter-spacing:0.07em; margin-top:2px; }
+.mg-team-bar-track { flex:1; min-width:120px; }
+.mg-team-bar-bg { height:6px; background:var(--border); border-radius:3px; overflow:hidden; margin-top:6px; }
+.mg-team-bar-fill { height:100%; border-radius:3px; background:linear-gradient(90deg,#7C3AED,#A78BFA); transition:width .6s ease; }
+.mg-team-stats { display:flex; gap:16px; flex-wrap:wrap; }
+.mg-team-stat { text-align:center; }
+.mg-team-stat-val { font-size:18px; font-weight:700; color:var(--text-primary); letter-spacing:-0.03em; }
+.mg-team-stat-lbl { font-size:9px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.06em; font-family:'DM Mono',monospace; }
+
+/* ─────────────────────────────────────────────
+   FILTROS
+───────────────────────────────────────────── */
+.mg-filters {
+  display:flex; gap:8px; flex-wrap:wrap; align-items:flex-end;
+  background:var(--bg-card); border:1px solid rgba(34,197,94,0.05); border-radius:12px; padding:12px;
+}
+.mg-filter-group { display:flex; flex-direction:column; gap:4px; min-width:120px; }
+.mg-filter-label { font-size:10px; font-weight:500; color:var(--text-muted); letter-spacing:0.06em; text-transform:uppercase; }
+.mg-filter-select, .mg-filter-input {
+  padding:7px 10px; background:var(--bg-input); border:1px solid rgba(167,139,250,0.08);
+  border-radius:8px; color:var(--text-primary); font-family:'DM Sans',sans-serif; font-size:12px;
+  outline:none; transition:border-color .15s; appearance:none; -webkit-appearance:none;
+}
+.mg-filter-select:focus, .mg-filter-input:focus { border-color:rgba(167,139,250,0.35); }
+.mg-filter-select {
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 10 10'%3E%3Cpath fill='%23334155' d='M5 7L0 2h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 10px center; padding-right:28px; cursor:pointer;
+}
+.mg-filter-input::placeholder { color:var(--text-placeholder); }
+.mg-btn-limpar {
+  padding:7px 14px; background:transparent; color:var(--text-muted);
+  border:1px solid var(--border); border-radius:8px;
+  font-family:'DM Sans',sans-serif; font-size:12px; cursor:pointer; transition:color .15s;
+  align-self:flex-end; white-space:nowrap;
+}
+.mg-btn-limpar:hover { color:var(--text-secondary); }
+.mg-result-count { font-size:11px; color:var(--text-tertiary); font-family:'DM Mono',monospace; align-self:flex-end; white-space:nowrap; }
+
+/* ─────────────────────────────────────────────
+   GRID DE CARDS
+───────────────────────────────────────────── */
+.mg-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:10px;
+}
+
+/* ─────────────────────────────────────────────
+   CARD DO CONSULTOR
+───────────────────────────────────────────── */
+.mg-card {
+  background:var(--bg-card); border:1px solid rgba(34,197,94,0.06); border-radius:var(--card-radius);
+  padding:16px; cursor:pointer; transition:all .18s; position:relative; overflow:hidden;
+}
+.mg-card:hover { background:var(--bg-card-hi); border-color:rgba(167,139,250,0.2); transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+.mg-card-top { display:flex; align-items:flex-start; gap:12px; margin-bottom:14px; }
+
+/* Avatar */
+.mg-avatar {
+  width:44px; height:44px; border-radius:14px; border:2px solid; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:15px; font-weight:700; font-family:'DM Mono',monospace; color:#fff; letter-spacing:0;
+}
+
+.mg-card-info { flex:1; min-width:0; }
+.mg-card-nome { font-size:13px; font-weight:600; color:var(--text-primary); letter-spacing:-0.02em; margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.mg-card-cargo { font-size:10px; color:var(--text-muted); }
+
+/* Score gauge */
+.mg-score-wrap { display:flex; flex-direction:column; align-items:flex-end; gap:2px; }
+.mg-score-val { font-size:26px; font-weight:700; letter-spacing:-0.05em; font-family:'DM Sans',sans-serif; line-height:1; }
+.mg-score-label { font-size:9px; font-family:'DM Mono',monospace; letter-spacing:0.04em; text-transform:uppercase; }
+
+/* Score bar */
+.mg-score-bar { margin-bottom:12px; }
+.mg-score-bar-bg { height:4px; background:var(--border); border-radius:2px; overflow:hidden; }
+.mg-score-bar-fill { height:100%; border-radius:2px; transition:width .5s ease; }
+
+/* Stats row */
+.mg-card-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; }
+.mg-stat { text-align:center; }
+.mg-stat-val { font-size:16px; font-weight:700; color:var(--text-primary); letter-spacing:-0.03em; font-family:'DM Sans',sans-serif; }
+.mg-stat-lbl { font-size:8.5px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:0.05em; margin-top:1px; }
+
+/* Última atividade */
+.mg-card-footer { margin-top:10px; padding-top:10px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.mg-card-last { font-size:10px; color:var(--text-placeholder); font-family:'DM Mono',monospace; }
+
+/* Nível badge */
+.mg-nivel-badge {
+  display:inline-flex; align-items:center; gap:4px; padding:3px 9px;
+  border-radius:7px; font-size:10px; font-weight:600; border:1px solid; white-space:nowrap;
+}
+
+/* ─────────────────────────────────────────────
+   PAINEL DE DETALHAMENTO (modal lateral)
+───────────────────────────────────────────── */
+.mg-detail-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:4000;
+  display:flex; align-items:flex-start; justify-content:flex-end;
+  animation:mgOverlayIn .2s ease;
+}
+@keyframes mgOverlayIn { from{opacity:0} to{opacity:1} }
+
+.mg-detail-panel {
+  width:min(480px,100vw); height:100vh; overflow-y:auto;
+  background:var(--bg-panel); border-left:1px solid rgba(167,139,250,0.15);
+  display:flex; flex-direction:column;
+  animation:mgPanelIn .25s cubic-bezier(.22,.68,0,1.2);
+}
+@keyframes mgPanelIn { from{transform:translateX(40px);opacity:0} to{transform:translateX(0);opacity:1} }
+
+.mg-detail-header {
+  padding:18px 20px 16px; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:14px; flex-shrink:0;
+  background:rgba(167,139,250,0.03);
+}
+.mg-detail-close {
+  width:28px; height:28px; border-radius:8px; background:transparent;
+  border:1px solid var(--border); color:var(--text-muted);
+  cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center;
+  transition:all .15s; margin-left:auto; flex-shrink:0;
+}
+.mg-detail-close:hover { background:rgba(239,68,68,0.08); border-color:rgba(239,68,68,0.2); color:#FCA5A5; }
+
+.mg-detail-body { padding:16px 20px; display:flex; flex-direction:column; gap:16px; }
+
+/* Score grande */
+.mg-detail-score-wrap {
+  display:flex; align-items:center; gap:16px; padding:16px;
+  border-radius:14px; border:1px solid;
+}
+.mg-detail-score-big { font-size:52px; font-weight:800; letter-spacing:-0.06em; font-family:'DM Sans',sans-serif; line-height:1; }
+.mg-detail-score-info { flex:1; }
+.mg-detail-score-nivel { font-size:18px; font-weight:600; letter-spacing:-0.02em; margin-bottom:3px; }
+.mg-detail-score-lbl { font-size:11px; color:var(--text-muted); font-family:'DM Mono',monospace; }
+
+/* Breakdown table */
+.mg-breakdown-title { font-size:11px; font-weight:500; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; font-family:'DM Mono',monospace; margin-bottom:8px; }
+.mg-breakdown-table { width:100%; border-collapse:collapse; }
+.mg-breakdown-table tr { border-bottom:1px solid rgba(255,255,255,0.03); }
+.mg-breakdown-table tr:last-child { border-bottom:none; }
+.mg-breakdown-table td { padding:8px 0; font-size:11.5px; }
+.mg-breakdown-table td:first-child { color:var(--text-secondary); width:44%; }
+.mg-breakdown-table td:nth-child(2) { font-family:'DM Mono',monospace; font-size:11px; text-align:center; width:20%; }
+.mg-breakdown-table td:nth-child(3) { color:var(--text-tertiary); font-size:10.5px; padding-left:8px; }
+
+/* Pontos positivos / negativos */
+.mg-section-title { font-size:11px; font-weight:500; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; font-family:'DM Mono',monospace; margin-bottom:8px; }
+.mg-point-list { display:flex; flex-direction:column; gap:5px; }
+.mg-point-item { display:flex; align-items:flex-start; gap:8px; font-size:11.5px; line-height:1.5; padding:6px 10px; border-radius:8px; }
+.mg-point-pos { background:rgba(34,197,94,0.05); border:1px solid rgba(34,197,94,0.1); color:#86EFAC; }
+.mg-point-neg { background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.1); color:#FCA5A5; }
+
+/* Sugestões */
+.mg-sugestao-item { display:flex; align-items:flex-start; gap:8px; font-size:11.5px; line-height:1.5; padding:8px 10px; background:rgba(167,139,250,0.04); border:1px solid rgba(167,139,250,0.1); border-radius:8px; color:#C4B5FD; }
+
+/* Histórico */
+.mg-hist-item { display:flex; align-items:flex-start; gap:10px; padding:7px 0; border-bottom:1px solid var(--border); font-size:11px; }
+.mg-hist-item:last-child { border-bottom:none; }
+.mg-hist-ts { font-family:'DM Mono',monospace; color:var(--text-placeholder); white-space:nowrap; font-size:10px; flex-shrink:0; padding-top:1px; }
+.mg-hist-desc { color:var(--text-muted); }
+
+/* ─────────────────────────────────────────────
+   ESTADOS
+───────────────────────────────────────────── */
+.mg-state { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:52px 24px; text-align:center; }
+.mg-state-icon { font-size:30px; opacity:.45; }
+.mg-state-title { font-size:13px; font-weight:500; color:var(--text-tertiary); }
+.mg-state-sub { font-size:11px; color:var(--text-placeholder); line-height:1.7; max-width:260px; }
+.mg-spinner { width:22px; height:22px; border:2px solid rgba(167,139,250,0.1); border-top-color:#A78BFA; border-radius:50%; animation:mg-spin .75s linear infinite; }
+@keyframes mg-spin { to{transform:rotate(360deg)} }
+
+/* ─────────────────────────────────────────────
+   CORES POR NÍVEL
+───────────────────────────────────────────── */
+.mg-Elite     { --lc:#A78BFA; --lb:rgba(167,139,250,0.1); --lbr:rgba(167,139,250,0.25); }
+.mg-Excelente { --lc:#22C55E; --lb:rgba(34,197,94,0.08);  --lbr:rgba(34,197,94,0.22);  }
+.mg-Bom       { --lc:#0EA5E9; --lb:rgba(14,165,233,0.08); --lbr:rgba(14,165,233,0.22); }
+.mg-Atencao   { --lc:#EAB308; --lb:rgba(234,179,8,0.08);  --lbr:rgba(234,179,8,0.22);  }
+.mg-Critico   { --lc:#EF4444; --lb:rgba(239,68,68,0.08);  --lbr:rgba(239,68,68,0.22);  }
+
+/* ─────────────────────────────────────────────
+   RESPONSIVO
+───────────────────────────────────────────── */
+@media (max-width:600px) {
+  .mg-grid { grid-template-columns:1fr; }
+  .mg-detail-panel { width:100vw; }
+  .mg-team-stats { gap:10px; }
+}

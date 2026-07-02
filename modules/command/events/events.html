@@ -1,0 +1,185 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  CDP — COMMAND EVENTS ENGINE                                 ║
+  ║  Tela: KR7 Command → Events                                  ║
+  ║  SPR-001 · KR7 Command                                       ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<div class="page" id="page-command-events">
+  <div class="ev-wrap">
+
+    <!-- ── Header ── -->
+    <div class="ev-header">
+      <div class="ev-header-icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:7px">
+          <div class="ev-header-title">Command Events</div>
+          <div class="ev-live-dot"></div>
+        </div>
+        <div class="ev-header-sub">// KR7 COMMAND · AUDIT ENGINE</div>
+      </div>
+    </div>
+
+    <!-- ── Filtros ── -->
+    <div class="ev-filters">
+      <div class="ev-filters-row">
+
+        <div class="ev-filter-group">
+          <div class="ev-filter-label">Módulo</div>
+          <select class="ev-filter-select" id="ev-f-modulo">
+            <option value="">Todos</option>
+            <option value="leads">Leads</option>
+            <option value="imoveis">Imóveis</option>
+            <option value="corretores">Corretores</option>
+            <option value="agenda">Agenda</option>
+            <option value="financeiro">Financeiro</option>
+            <option value="configuracoes">Configurações</option>
+            <option value="usuarios">Usuários</option>
+            <option value="ligacoes">Ligações</option>
+            <option value="oferta_ativa">Oferta Ativa</option>
+            <option value="auth">Auth</option>
+            <option value="import">Import</option>
+            <option value="command">Command</option>
+            <option value="system">Sistema</option>
+          </select>
+        </div>
+
+        <div class="ev-filter-group">
+          <div class="ev-filter-label">Tipo de Evento</div>
+          <select class="ev-filter-select" id="ev-f-tipo">
+            <option value="">Todos</option>
+            <optgroup label="Leads">
+              <option value="LEAD_CREATED">Lead Criado</option>
+              <option value="LEAD_UPDATED">Lead Atualizado</option>
+              <option value="LEAD_IMPORTED">Lead Importado</option>
+              <option value="LEAD_ASSIGNED">Lead Atribuído</option>
+              <option value="LEAD_TRANSFERRED">Lead Transferido</option>
+              <option value="LEAD_RECOVERED">Lead Recuperado</option>
+            </optgroup>
+            <optgroup label="Interações">
+              <option value="FIRST_CONTACT">Primeiro Contato</option>
+              <option value="PHONE_CALL">Ligação</option>
+              <option value="WHATSAPP_SENT">WhatsApp</option>
+              <option value="EMAIL_SENT">E-mail</option>
+              <option value="FOLLOWUP">Follow-Up</option>
+            </optgroup>
+            <optgroup label="Pipeline">
+              <option value="VISIT_SCHEDULED">Visita Agendada</option>
+              <option value="VISIT_COMPLETED">Visita Realizada</option>
+              <option value="PROPOSAL_SENT">Proposta Enviada</option>
+              <option value="SALE_COMPLETED">Venda Fechada</option>
+              <option value="SALE_LOST">Venda Perdida</option>
+            </optgroup>
+            <optgroup label="Entidades">
+              <option value="CLIENT_CREATED">Cliente Criado</option>
+              <option value="PROPERTY_CREATED">Imóvel Criado</option>
+            </optgroup>
+            <optgroup label="Acesso">
+              <option value="LOGIN">Login</option>
+              <option value="LOGOUT">Logout</option>
+              <option value="USER_CREATED">Usuário Criado</option>
+            </optgroup>
+            <optgroup label="Sistema">
+              <option value="COMMAND_ALERT">Alerta Command</option>
+              <option value="COMMAND_ACTION">Ação Command</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="ev-filter-group">
+          <div class="ev-filter-label">Origem</div>
+          <select class="ev-filter-select" id="ev-f-origem">
+            <option value="">Todas</option>
+            <option value="USER">Usuário</option>
+            <option value="SYSTEM">Sistema</option>
+            <option value="COMMAND">Command</option>
+            <option value="LANDING_PAGE">Landing Page</option>
+            <option value="IMPORT">Importação</option>
+            <option value="API">API</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="ev-filters-row">
+
+        <div class="ev-filter-group">
+          <div class="ev-filter-label">Consultor</div>
+          <input type="text"
+                 class="ev-filter-input"
+                 id="ev-f-consultor"
+                 placeholder="Nome do corretor..."
+                 onkeydown="if(event.key==='Enter')evAplicarFiltros()">
+        </div>
+
+        <div class="ev-filter-group">
+          <div class="ev-filter-label">Lead</div>
+          <input type="text"
+                 class="ev-filter-input"
+                 id="ev-f-lead"
+                 placeholder="Nome do lead..."
+                 onkeydown="if(event.key==='Enter')evAplicarFiltros()">
+        </div>
+
+        <div class="ev-filter-group">
+          <div class="ev-filter-label">Período — De</div>
+          <input type="date" class="ev-filter-input" id="ev-f-desde">
+        </div>
+
+        <div class="ev-filter-group">
+          <div class="ev-filter-label">Período — Até</div>
+          <input type="date" class="ev-filter-input" id="ev-f-ate">
+        </div>
+
+      </div>
+
+      <div class="ev-filters-actions">
+        <div style="display:flex;gap:8px">
+          <button class="ev-btn-filter" onclick="evAplicarFiltros()">
+            Filtrar
+          </button>
+          <button class="ev-btn-clear" onclick="evLimparFiltros()">
+            Limpar
+          </button>
+        </div>
+        <div class="ev-count-label" id="ev-count-label">—</div>
+      </div>
+    </div>
+
+    <!-- ── Lista de Eventos ── -->
+    <div id="ev-container">
+      <!-- Estado inicial: aguardando carregamento -->
+      <div class="ev-state" id="ev-state-loading" style="display:none">
+        <div class="ev-spinner"></div>
+        <div class="ev-state-title">Carregando eventos...</div>
+      </div>
+
+      <div class="ev-state" id="ev-state-empty" style="display:none">
+        <div class="ev-state-icon">📭</div>
+        <div class="ev-state-title">Nenhum evento encontrado</div>
+        <div class="ev-state-sub">Tente ajustar os filtros ou aguarde novas ações no sistema.</div>
+      </div>
+
+      <div class="ev-state" id="ev-state-error" style="display:none">
+        <div class="ev-state-icon">⚠️</div>
+        <div class="ev-state-title">Erro ao carregar eventos</div>
+        <div class="ev-state-sub" id="ev-error-msg">Verifique a conexão com o Supabase.</div>
+        <button class="ev-btn-filter" style="margin-top:8px" onclick="evCarregar()">Tentar novamente</button>
+      </div>
+
+      <div class="ev-list" id="ev-list"></div>
+
+      <div class="ev-load-more" id="ev-load-more" style="display:none">
+        <button class="ev-btn-more" onclick="evCarregarMais()">
+          Carregar mais eventos
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

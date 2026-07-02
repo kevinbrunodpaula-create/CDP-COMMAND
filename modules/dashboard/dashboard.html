@@ -1,0 +1,57 @@
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+
+      <!-- Saudação -->
+      <div class="db-greeting" id="db-greeting-wrap">
+        <div class="db-greeting-txt">Olá, <span id="db-greeting-nome">—</span> 👋</div>
+        <div class="db-greeting-date" id="db-greeting-date">—</div>
+      </div>
+
+      <!-- KPI Row: 5 cards em grid -->
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:8px;">
+        <div class="db-kpi kpi-highlight" id="kpi-leads"></div>
+        <div class="db-kpi" id="kpi-conv"></div>
+        <div class="db-kpi" id="kpi-vendas"></div>
+        <div class="db-kpi" id="kpi-quentes"></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <div class="db-kpi" id="kpi-parados" style="flex:1"></div>
+      </div>
+
+      <!-- Funil visual + Ranking lado a lado -->
+      <div class="db-flex-row" style="margin-bottom:8px">
+        <div class="db-card db-flex-half">
+          <div class="db-card-title">Funil de conversão</div>
+          <div id="dash-pipeline"></div>
+        </div>
+        <div class="db-card db-flex-half">
+          <div class="db-card-title">Ranking da equipe</div>
+          <div id="dash-ranking"></div>
+        </div>
+      </div>
+
+      <!-- Pipeline chart -->
+      <div class="db-card" style="margin-bottom:8px">
+        <div class="db-card-title">Leads por etapa</div>
+        <canvas id="ch-pipeline" height="110"></canvas>
+      </div>
+
+      <!-- Origem dos leads -->
+      <div class="db-card" style="margin-bottom:8px">
+        <div class="db-card-title">Origem dos leads</div>
+        <div style="height:160px;position:relative">
+          <canvas id="ch-origem"></canvas>
+        </div>
+      </div>
+
+      <!-- META MENSAL -->
+      <div id="meta-mensal-wrap"></div>
+
+      <!-- Central Inteligente -->
+      <div class="db-card" style="margin-bottom:8px">
+        <div class="db-card-title">Central Inteligente</div>
+        <div id="dash-ci"></div>
+      </div>
+
+    </div>
+

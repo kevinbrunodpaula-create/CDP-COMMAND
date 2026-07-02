@@ -1,0 +1,12 @@
+    <!-- LEADS -->
+    <div class="page" id="page-leads">
+      <div class="search-row">
+        <div class="sw"><span class="si-pos">🔍</span><input type="text" class="s-inp" id="search-lead" placeholder="Buscar lead..." oninput="filterLeads()"></div>
+        <div class="vtog"><button class="vb active" onclick="setView('kanban',this)">Kanban</button><button class="vb" onclick="setView('lista',this)">Lista</button></div>
+        <select class="fsel" id="filter-corr" onchange="filterLeads()"><option value="">Todos corretores</option></select>
+        <select class="fsel" id="filter-int" onchange="filterLeads()"><option value="">Todos</option><option value="hot">Quente</option><option value="warm">Morno</option><option value="cold">Frio</option></select>
+      </div>
+      <div id="leads-kanban"><div class="kanban-wrap" id="kanban-board"></div></div>
+      <div id="leads-lista" style="display:none"><div class="tw2"><table class="ltable"><thead><tr><th>Nome</th><th>Telefone</th><th>Interesse</th><th>Tipo</th><th>Valor</th><th>Origem</th><th>Corretor</th><th>Status</th><th>Ações</th></tr></thead><tbody id="leads-tbody"></tbody></table></div></div>
+    </div>
+

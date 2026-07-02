@@ -1,0 +1,678 @@
+<!-- MODAIS -->
+<div class="modal-ov" id="modal-add-lead">
+  <div class="modal">
+    <div class="mhd"><div class="mtitle" id="modal-lead-title">Novo Lead</div><div class="mclose" onclick="closeModal('add-lead')">✕</div></div>
+    <input type="hidden" id="edit-lead-id">
+    <div class="fr"><div class="fgm"><label class="flm">Nome</label><input class="fim" placeholder="João da Silva" id="new-nome"></div><div class="fgm"><label class="flm">Telefone</label><input class="fim" placeholder="(11) 99999-9999" id="new-tel"></div></div>
+    <div class="fr"><div class="fgm"><label class="flm">E-mail</label><input class="fim" placeholder="joao@email.com" id="new-email"></div><div class="fgm"><label class="flm">Origem</label><select class="fsm" id="new-origem"><option>Instagram</option><option>Facebook</option><option>Google</option><option>Landing Page</option><option>Indicação</option><option>Site</option><option>WhatsApp</option><option>Outro</option></select></div></div>
+    <div class="fr">
+      <div class="fgm"><label class="flm">Tipo de imóvel</label><select class="fsm" id="new-tipo"><option>Apartamento</option><option>Casa</option><option>Kitnet</option><option>Terreno</option><option>Comercial</option></select></div>
+      <div class="fgm"><label class="flm">Valor pretendido <span style="color:#F59E0B;font-size:9px">● obrigatório p/ match</span></label><input class="fim" placeholder="R$ 350.000" id="new-valor"></div>
+    </div>
+    <div class="fr">
+      <div class="fgm"><label class="flm">Bairro desejado <span style="color:#F59E0B;font-size:9px">● obrigatório p/ match</span></label><input class="fim" placeholder="Centro, Batel..." id="new-bairro"></div>
+      <div class="fgm"><label class="flm">Quartos desejados <span style="color:#F59E0B;font-size:9px">● obrigatório p/ match</span></label><input class="fim" type="number" min="0" placeholder="2" id="new-quartos"></div>
+    </div>
+    <div class="fr">
+      <div class="fgm"><label class="flm">Renda familiar <span style="color:#F59E0B;font-size:9px">● obrigatório p/ match</span></label><input class="fim" placeholder="R$ 5.000" id="new-renda"></div>
+      <div class="fgm"><label class="flm">Programa</label><select class="fsm" id="new-programa"><option value="">Não definido</option><option>MCMV</option><option>SFH</option><option>SFI</option><option>Alto Padrão</option></select></div>
+    </div>
+    <div class="fr"><div class="fgm"><label class="flm">Interesse</label><select class="fsm" id="new-int"><option value="hot">🔥 Quente</option><option value="warm">🟡 Morno</option><option value="cold">🧊 Frio</option></select></div><div class="fgm"><label class="flm">Status</label><select class="fsm" id="new-status" onchange="toggleVisitaFields()"><option>Lead Novo</option><option>Primeiro Contato</option><option>Em Atendimento</option><option>Qualificado</option><option>Visita Marcada</option><option>Proposta</option><option>Documentação</option><option>Fechado</option><option>Perdido</option></select></div></div>
+    <div class="fgm"><label class="flm">Corretor</label><select class="fsm" id="new-corr"><option value="">Sem corretor</option></select></div>
+    <!-- Campos de visita -->
+    <div id="visita-fields" style="display:none;background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.12);border-radius:10px;padding:12px;margin-bottom:12px;">
+      <div style="font-size:11px;font-weight:500;color:#86EFAC;margin-bottom:10px;">📅 Dados da Visita</div>
+      <div class="fr">
+        <div class="fgm"><label class="flm">Data da visita *</label><input class="fim" type="date" id="new-visita-data"></div>
+        <div class="fgm"><label class="flm">Horário *</label><input class="fim" type="time" id="new-visita-hora"></div>
+      </div>
+      <div class="fgm"><label class="flm">Local / Endereço</label><input class="fim" placeholder="Rua das Flores, 123..." id="new-visita-local"></div>
+    </div>
+    <div class="fgm"><label class="flm">Observações</label><textarea class="fta" placeholder="Informações adicionais..." id="new-obs"></textarea></div>
+    <!-- Alerta match -->
+    <div id="match-alert" style="display:none;background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);border-radius:10px;padding:9px 12px;font-size:11px;color:#FCD34D;margin-bottom:10px;">
+      ⚠️ Para usar o Match de imóveis preencha: <span id="match-alert-campos"></span>
+    </div>
+    <!-- Campos financeiros -->
+    <div id="financeiro-fields" style="display:none;background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.12);border-radius:10px;padding:12px;margin-bottom:12px;">
+      <div style="font-size:11px;font-weight:500;color:#86EFAC;margin-bottom:10px;">💰 Dados Financeiros</div>
+
+      <div class="fr">
+        <div class="fgm"><label class="flm">Data assinatura CAIXA</label><input type="date" class="fim" id="new-assinatura"></div>
+        <div class="fgm" id="new-pct-fat-wrap"><label class="flm">% KR7 recebe da incorporadora (sobre VGV)</label><input type="number" class="fim" id="new-pct-fat" placeholder="Ex: 4" step="0.1" min="0" max="100" oninput="calcDistLead()"></div>
+      </div>
+
+      <!-- Bloco restrito: visível apenas para CEO/Diretor -->
+      <div id="financeiro-fields-restrito" style="background:rgba(168,85,247,0.05);border:1px solid rgba(168,85,247,0.15);border-radius:8px;padding:10px 12px;margin-top:4px;">
+        <div style="font-size:10px;font-weight:600;color:#D8B4FE;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">Distribuição — todas as % sobre o VGV</div>
+        <div class="fr" style="margin-bottom:0;">
+          <div class="fgm"><label class="flm">🏢 % Imobiliária (caixa)</label><input type="number" class="fim" id="new-pct-imob" placeholder="Ex: 0.8" step="0.1" min="0" max="100" oninput="calcDistLead()"></div>
+          <div class="fgm"><label class="flm">👤 % Kevin</label><input type="number" class="fim" id="new-pct-kevin" placeholder="Ex: 1" step="0.1" min="0" max="100" oninput="calcDistLead()"></div>
+        </div>
+        <div class="fr">
+          <div class="fgm"><label class="flm">👤 % Tanner</label><input type="number" class="fim" id="new-pct-tanner" placeholder="Ex: 1" step="0.1" min="0" max="100" oninput="calcDistLead()"></div>
+          <div class="fgm"></div>
+        </div>
+        <div id="dist-lead-preview" style="margin-top:8px;font-size:11px;color:#64748B;">Preencha os campos acima para ver a distribuição.</div>
+      </div>
+
+      <!-- % Corretor: visível para todos, cada um vê apenas o seu -->
+      <div class="fr" style="margin-top:8px;">
+        <div class="fgm"><label class="flm">🤝 % Comissão corretor</label><input type="number" class="fim" id="new-pct-com" placeholder="Auto (1.2/1.4/1.6)" step="0.1" min="0" max="100" oninput="calcDistLead()"></div>
+        <div class="fgm"></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px"><button class="btn-s" style="flex:1" onclick="closeModal('add-lead')">Cancelar</button><button class="btn-p" style="flex:2;justify-content:center" id="btn-save-lead" onclick="saveLead()">Salvar Lead</button></div>
+  </div>
+</div>
+
+<!-- MODAL MOTIVO DE PERDA -->
+<div class="modal-ov" id="modal-perda">
+  <div class="modal">
+    <div class="mhd"><div class="mtitle">😔 Motivo da Perda</div><div class="mclose" onclick="closeModal('perda')">✕</div></div>
+    <input type="hidden" id="perda-lead-id">
+    <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.12);border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:11px;color:#FCA5A5">
+      Registrar o motivo ajuda a equipe a melhorar o processo de atendimento.
+    </div>
+    <div class="fgm"><label class="flm">Motivo da perda <span style="color:#EF4444">*</span></label>
+      <select class="fsm" id="perda-motivo" onchange="togglePerdaOutro()">
+        <option value="">Selecione o motivo...</option>
+        <option>Preço acima do esperado</option>
+        <option>Escolheu concorrente</option>
+        <option>Sem crédito / financiamento negado</option>
+        <option>Desistiu da compra</option>
+        <option>Não atendeu o perfil</option>
+        <option>Sem contato / sumiu</option>
+        <option>Comprou com outro corretor</option>
+        <option>Negociação não avançou</option>
+        <option>Outro</option>
+      </select>
+    </div>
+    <div class="fgm" id="perda-outro-wrap" style="display:none">
+      <label class="flm">Especifique</label>
+      <input class="fim" id="perda-outro" placeholder="Descreva o motivo...">
+    </div>
+    <div class="fgm">
+      <label class="flm">Observação <span style="font-size:10px;color:#64748B;font-weight:400">(opcional)</span></label>
+      <textarea class="fim" id="perda-obs" rows="2" placeholder="Detalhes adicionais..." style="resize:none"></textarea>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('perda')">Cancelar</button>
+      <button class="btn-p" style="flex:2;justify-content:center;background:rgba(239,68,68,0.1);border-color:rgba(239,68,68,0.25);color:#FCA5A5" onclick="confirmarPerda()">Confirmar Perda</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL TRANSFERIR LEAD -->
+<div class="modal-ov" id="modal-transferir">
+  <div class="modal">
+    <div class="mhd"><div class="mtitle">🔄 Transferir Lead</div><div class="mclose" onclick="closeModal('transferir')">✕</div></div>
+    <input type="hidden" id="transf-lead-id">
+    <div id="transf-lead-info" style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:#86EFAC;"></div>
+    <div class="fgm"><label class="flm">Transferir para <span style="color:#EF4444">*</span></label>
+      <select class="fsm" id="transf-corretor">
+        <option value="">Selecione o corretor...</option>
+      </select>
+    </div>
+    <div class="fgm">
+      <label class="flm">Motivo da transferência <span style="color:#EF4444">*</span></label>
+      <textarea class="fim" id="transf-motivo" rows="2" placeholder="Ex: Corretor original de férias, lead do bairro do novo corretor..." style="resize:none"></textarea>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('transferir')">Cancelar</button>
+      <button class="btn-p" style="flex:2;justify-content:center" onclick="confirmarTransferencia()">Transferir</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-conversa">
+  <div class="modal" style="max-width:520px">
+    <div class="mhd"><div class="mtitle">💬 Análise de Conversa</div><div class="mclose" onclick="closeModal('conversa')">✕</div></div>
+    <input type="hidden" id="conv-lead-id">
+    <div id="conv-lead-info" style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.1);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:#86EFAC;"></div>
+    <div class="fgm">
+      <label class="flm">Cole a conversa do WhatsApp aqui</label>
+      <textarea class="fim" id="conv-texto" rows="8" placeholder="Cole aqui o histórico da conversa com o cliente...&#10;&#10;Ex:&#10;Você: Olá João, tudo bem?&#10;Cliente: Oi! Sim, estava pensando no apartamento...&#10;Você: Que ótimo! Posso te apresentar mais opções?" style="resize:vertical;line-height:1.6;font-size:11px"></textarea>
+      <div style="font-size:10px;color:#64748B;margin-top:4px">Mínimo 50 caracteres para análise</div>
+    </div>
+    <!-- Resultado da análise -->
+    <div id="conv-resultado" style="display:none;margin-top:10px">
+      <div style="font-size:10px;font-weight:500;color:#64748B;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Análise da IA</div>
+      <!-- Sentimento -->
+      <div id="conv-sentimento" style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;margin-bottom:8px;font-size:12px;"></div>
+      <!-- Resumo -->
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;margin-bottom:8px">
+        <div style="font-size:10px;color:#94A3B8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Resumo</div>
+        <div id="conv-resumo" style="font-size:12px;color:#A7C4AE;line-height:1.7"></div>
+      </div>
+      <!-- Objeções -->
+      <div id="conv-objecoes-wrap" style="background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.1);border-radius:10px;padding:12px;margin-bottom:8px;display:none">
+        <div style="font-size:10px;color:#FCA5A5;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">⚠️ Objeções identificadas</div>
+        <div id="conv-objecoes" style="font-size:12px;color:#A7C4AE;line-height:1.7"></div>
+      </div>
+      <!-- Próxima ação -->
+      <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:12px;margin-bottom:8px">
+        <div style="font-size:10px;color:#86EFAC;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">🎯 Próxima ação sugerida</div>
+        <div id="conv-proxima" style="font-size:12px;color:#A7C4AE;line-height:1.7"></div>
+      </div>
+    </div>
+    <div id="conv-loading" style="display:none;text-align:center;padding:20px;color:#94A3B8;font-size:12px">
+      <div class="spin" style="display:inline-block;margin-bottom:8px"></div><br>IA analisando conversa...
+    </div>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('conversa')">Fechar</button>
+      <button class="btn-p" style="flex:2;justify-content:center" id="btn-analisar-conv" onclick="analisarConversa()">
+        🤖 Analisar com IA
+      </button>
+      <button id="btn-salvar-conv" class="btn-p" style="flex:2;justify-content:center;display:none;background:rgba(34,197,94,0.12);border-color:rgba(34,197,94,0.25);color:#86EFAC" onclick="salvarConversa()">
+        💾 Salvar no histórico
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL OFERTA ATIVA — ADICIONAR MANUALMENTE -->
+<div class="modal-ov" id="modal-oa-add">
+  <div class="modal" style="max-width:420px">
+    <div class="mhd"><div class="mtitle">⚡ Adicionar à Oferta Ativa</div><div class="mclose" onclick="closeModal('oa-add')">✕</div></div>
+    <div class="fgm"><label class="flm">Nome <span style="color:#EF4444">*</span></label><input class="fim" id="oa-add-nome" placeholder="Maria da Silva"></div>
+    <div class="fgm"><label class="flm">Telefone <span style="color:#EF4444">*</span></label><input class="fim" id="oa-add-tel" placeholder="(11) 99999-9999" type="tel"></div>
+    <div class="fgm"><label class="flm">E-mail</label><input class="fim" id="oa-add-email" placeholder="maria@email.com" type="email"></div>
+    <div class="fgm"><label class="flm">Observação</label><textarea class="fim" id="oa-add-obs" rows="2" placeholder="Ex.: Indicação do João, mora no Batel..." style="resize:none"></textarea></div>
+    <div style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.12);border-radius:10px;padding:10px 12px;font-size:11px;color:#FCD34D;margin-bottom:14px">
+      ⚡ Este contato ficará em <strong>Oferta Ativa</strong> até você ligar e decidir: <strong>Ativar</strong> (vira lead no CRM) ou <strong>Descartar</strong> (volta para a fila depois).
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('oa-add')">Cancelar</button>
+      <button class="btn-p" style="flex:2;justify-content:center;background:#F59E0B;border-color:#D97706" onclick="oaSalvarAdd()">Adicionar à fila</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL OFERTA ATIVA — IMPORTAR CSV -->
+<div class="modal-ov" id="modal-oa-importar">
+  <div class="modal" style="max-width:500px">
+    <div class="mhd"><div class="mtitle">📥 Importar Lista — Oferta Ativa</div><div class="mclose" onclick="closeModal('oa-importar')">✕</div></div>
+    <div style="background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.12);border-radius:10px;padding:12px;margin-bottom:14px;font-size:11px;color:#FCD34D;line-height:1.8">
+      📋 Aceita <strong>CSV ou Google Sheets</strong><br>
+      Colunas esperadas: <strong>Nome, Telefone</strong> (e-mail e obs são opcionais)<br>
+      Os contatos ficam em Oferta Ativa — <strong>não entram no CRM ainda</strong>.
+    </div>
+    <div class="fgm">
+      <label class="flm">Arquivo CSV</label>
+      <input type="file" id="oa-imp-file" accept=".csv" onchange="oaPreviewImport(this)" style="display:none">
+      <button onclick="document.getElementById('oa-imp-file').click()" style="width:100%;padding:10px;background:rgba(245,158,11,0.04);border:1.5px dashed rgba(245,158,11,0.2);border-radius:10px;color:#FCD34D;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif">
+        📂 Escolher arquivo CSV
+      </button>
+    </div>
+    <div style="text-align:center;color:#64748B;font-size:11px;margin:8px 0">— ou —</div>
+    <div class="fgm">
+      <label class="flm">Link do Google Sheets (público)</label>
+      <div style="display:flex;gap:6px">
+        <input class="fim" id="oa-imp-sheets" placeholder="https://docs.google.com/spreadsheets/d/..." type="url" style="flex:1">
+        <button class="btn-p" style="white-space:nowrap;padding:0 12px;background:#F59E0B;border-color:#D97706;color:#000" onclick="oaBuscarSheets()">Buscar</button>
+      </div>
+    </div>
+    <div id="oa-imp-preview" style="display:none;margin-bottom:12px">
+      <div style="font-size:10px;color:#94A3B8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Preview</div>
+      <div id="oa-imp-preview-table" style="max-height:140px;overflow-y:auto;border:1px solid rgba(255,255,255,0.06);border-radius:10px;font-size:11px"></div>
+      <div id="oa-imp-stats" style="font-size:11px;color:#94A3B8;margin-top:6px"></div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('oa-importar')">Cancelar</button>
+      <button class="btn-p" style="flex:2;justify-content:center;background:#F59E0B;border-color:#D97706;color:#000" id="btn-oa-importar" onclick="oaEnviarImport()" disabled>
+        ⚡ Enviar para Oferta Ativa
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL OFERTA ATIVA — ATIVAR (enriquecer antes de criar lead) -->
+<div class="modal-ov" id="modal-oa-ativar">
+  <div class="modal" style="max-width:480px">
+    <div class="mhd"><div class="mtitle">✅ Ativar como Lead</div><div class="mclose" onclick="closeModal('oa-ativar')">✕</div></div>
+    <input type="hidden" id="oa-ativar-id">
+    <div id="oa-ativar-info" style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.12);border-radius:10px;padding:12px;margin-bottom:16px;font-size:12px;color:#86EFAC;"></div>
+    <div style="font-size:11px;color:#94A3B8;margin-bottom:12px">Preencha o que souber — o restante pode ser completado depois no CRM.</div>
+    <div class="fr">
+      <div class="fgm"><label class="flm">Tipo de imóvel</label><select class="fsm" id="oa-atv-tipo"><option value="">Não definido</option><option>Apartamento</option><option>Casa</option><option>Kitnet</option><option>Terreno</option><option>Comercial</option></select></div>
+      <div class="fgm"><label class="flm">Valor pretendido</label><input class="fim" placeholder="R$ 350.000" id="oa-atv-valor"></div>
+    </div>
+    <div class="fr">
+      <div class="fgm"><label class="flm">Bairro desejado</label><input class="fim" placeholder="Centro, Batel..." id="oa-atv-bairro"></div>
+      <div class="fgm"><label class="flm">Interesse</label><select class="fsm" id="oa-atv-int"><option value="hot">🔥 Quente</option><option value="warm" selected>🟡 Morno</option><option value="cold">🧊 Frio</option></select></div>
+    </div>
+    <div class="fgm"><label class="flm">Origem</label><select class="fsm" id="oa-atv-origem"><option>Oferta Ativa</option><option>Indicação</option><option>Instagram</option><option>Facebook</option><option>Google</option><option>WhatsApp</option><option>Outro</option></select></div>
+    <div class="fgm"><label class="flm">Observação inicial</label><textarea class="fim" id="oa-atv-obs" rows="2" placeholder="O que o cliente disse na ligação..." style="resize:none"></textarea></div>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('oa-ativar')">Cancelar</button>
+      <button class="btn-p" style="flex:2;justify-content:center" id="btn-oa-confirmar-ativar" onclick="oaConfirmarAtivar()">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Ativar — criar lead
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-detail-lead">
+  <div class="modal">
+    <div class="mhd"><div class="mtitle" id="detail-nome">Detalhes</div><div style="display:flex;gap:8px;align-items:center"><button class="btn-p" style="font-size:11px;padding:5px 10px" id="detail-edit-btn">Editar</button><div class="mclose" onclick="closeModal('detail-lead')">✕</div></div></div>
+    <div class="detail-grid" id="detail-content"></div>
+    <div style="display:flex;gap:8px;margin-top:8px"><button class="btn-p" style="flex:1;justify-content:center;font-size:12px" id="detail-wpp-btn">WhatsApp</button><button class="btn-s" style="flex:1;font-size:12px;color:#FCA5A5;border-color:rgba(239,68,68,0.2)" id="detail-del-btn">Excluir</button></div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-add-imovel">
+  <div class="modal" style="max-width:520px">
+    <div class="mhd"><div class="mtitle" id="modal-imovel-title">Novo Imóvel</div><div class="mclose" onclick="closeModal('add-imovel')">✕</div></div>
+    <input type="hidden" id="edit-imovel-id">
+    <div class="fr">
+      <div class="fgm"><label class="flm">Nome do empreendimento</label><input class="fim" placeholder="Jardim Europa Tower" id="im-nome"></div>
+      <div class="fgm"><label class="flm">Tipo</label><select class="fsm" id="im-tipo"><option>Apartamento</option><option>Casa</option><option>Kitnet</option><option>Terreno</option><option>Comercial</option></select></div>
+    </div>
+    <div class="fr">
+      <div class="fgm"><label class="flm">Bairro</label><input class="fim" placeholder="Batel" id="im-bairro"></div>
+      <div class="fgm"><label class="flm">Cidade</label><input class="fim" placeholder="Curitiba" id="im-cidade"></div>
+    </div>
+    <div class="fr">
+      <div class="fgm"><label class="flm">Valor</label><input class="fim" placeholder="R$ 500.000" id="im-valor"></div>
+      <div class="fgm"><label class="flm">Entrada mín.</label><input class="fim" placeholder="R$ 50.000" id="im-entrada"></div>
+    </div>
+    <div class="fr">
+      <div class="fgm"><label class="flm">Quartos</label><input class="fim" type="number" min="0" placeholder="2" id="im-quartos"></div>
+      <div class="fgm"><label class="flm">Banheiros</label><input class="fim" type="number" min="0" placeholder="2" id="im-banheiros"></div>
+    </div>
+    <div class="fr">
+      <div class="fgm"><label class="flm">Vagas</label><input class="fim" type="number" min="0" placeholder="1" id="im-garagem"></div>
+      <div class="fgm"><label class="flm">Metragem</label><input class="fim" placeholder="65m²" id="im-metragem"></div>
+    </div>
+    <div class="fr">
+      <div class="fgm"><label class="flm">Construtora</label><input class="fim" placeholder="MRV, Cyrela..." id="im-const"></div>
+      <div class="fgm"><label class="flm">Programa</label><select class="fsm" id="im-programa"><option value="">Nenhum</option><option>MCMV</option><option>SFH</option><option>SFI</option><option>Alto Padrão</option></select></div>
+    </div>
+    <div class="fgm"><label class="flm">Link do Órulo / portal</label><input class="fim" placeholder="https://orulo.com.br/..." id="im-link" type="url"></div>
+    <div class="fgm"><label class="flm">Foto da fachada — URL</label><input class="fim" placeholder="https://..." id="im-foto-url" oninput="previewFoto(this.value)" type="url"></div>
+    <div class="fgm"><label class="flm">Ou enviar foto do dispositivo</label>
+      <input type="file" accept="image/*" id="im-foto-file" onchange="handleFotoFile(this)" style="display:none">
+      <button type="button" onclick="document.getElementById('im-foto-file').click()" style="width:100%;padding:8px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:10px;color:#94A3B8;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;">📷 Escolher foto</button>
+      <div id="im-foto-preview" style="margin-top:8px;display:none"><img id="im-foto-img" style="width:100%;height:140px;object-fit:cover;border-radius:10px;border:1px solid rgba(255,255,255,0.06)"></div>
+    </div>
+    <div class="fgm"><label class="flm">Diferenciais</label>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px" id="im-diferenciais-wrap">
+        ${['Piscina','Academia','Playground','Churrasqueira','Portaria 24h','Pet friendly','Varanda','Área gourmet','Salão de festas','Energia solar'].map(d=>`<label style="display:flex;align-items:center;gap:4px;font-size:11px;color:#94A3B8;cursor:pointer"><input type="checkbox" value="${d}" style="accent-color:#22C55E"> ${d}</label>`).join('')}
+      </div>
+    </div>
+    <div class="fr">
+      <div class="fgm"><label class="flm">Status</label><select class="fsm" id="im-status"><option>Disponível</option><option>Reservado</option><option>Vendido</option></select></div>
+      <div class="fgm"><label class="flm">Descrição curta</label><input class="fim" placeholder="2 dorms, sacada, lazer completo" id="im-desc"></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('add-imovel')">Cancelar</button>
+      <button class="btn-p" style="flex:2;justify-content:center" id="btn-save-im" onclick="saveImovel()">Salvar Imóvel</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-add-corretor">
+  <div class="modal">
+    <div class="mhd"><div class="mtitle" id="modal-corr-title">Novo Membro</div><div class="mclose" onclick="closeModal('add-corretor')">✕</div></div>
+    <div class="fr"><div class="fgm"><label class="flm">Nome</label><input class="fim" placeholder="Rafael Costa" id="co-nome"></div><div class="fgm"><label class="flm">Cargo</label><select class="fsm" id="co-cargo"><option>Corretor</option><option>Corretor Senior</option><option>Corretora</option><option>Gestor</option><option>Gerente</option><option>Diretor</option></select></div></div>
+    <div class="fr"><div class="fgm"><label class="flm">Telefone</label><input class="fim" placeholder="(11) 99999-9999" id="co-tel"></div><div class="fgm"><label class="flm">E-mail</label><input class="fim" placeholder="corretor@cdp.com" id="co-email"></div></div>
+    <div class="fgm"><label class="flm">Meta mensal (R$)</label><input class="fim" type="number" placeholder="50000" id="co-meta"></div>
+    <div style="display:flex;gap:8px;margin-top:8px"><button class="btn-s" style="flex:1" onclick="closeModal('add-corretor')">Cancelar</button><button class="btn-p" style="flex:2;justify-content:center" id="btn-save-co" onclick="saveCorretor()">Salvar</button></div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-followup">
+  <div class="modal">
+    <div class="mhd"><div class="mtitle">Mover para Follow-Up</div><div class="mclose" onclick="closeModal('followup')">✕</div></div>
+    <input type="hidden" id="fu-lead-id">
+    <div style="background:rgba(16,185,129,0.05);border:1px solid rgba(16,185,129,0.12);border-radius:10px;padding:12px 14px;margin-bottom:16px">
+      <div style="font-size:11px;font-weight:500;color:#6EE7B7;margin-bottom:4px">💎 Lead em Follow-Up</div>
+      <div style="font-size:11px;color:#94A3B8;line-height:1.7">Lead ativo com interesse confirmado, mas fora do timing. Sem prazo de urgência — acompanhamento contínuo.</div>
+    </div>
+    <div class="fgm"><label class="flm">Motivo do Follow-Up <span style="color:#EF4444">*</span></label>
+      <select class="fsm" id="fu-motivo">
+        <option value="">Selecione o motivo...</option>
+        <option>Aguardando financiamento</option>
+        <option>Aguardando vender imóvel atual</option>
+        <option>Fora do orçamento no momento</option>
+        <option>Mudança de planos pessoais</option>
+        <option>Aguardando lançamento específico</option>
+        <option>Pesquisando outras opções</option>
+        <option>Outro</option>
+      </select>
+    </div>
+    <div class="fgm" id="fu-motivo-outro-wrap" style="display:none"><label class="flm">Especifique o motivo</label><input class="fim" id="fu-motivo-outro" placeholder="Descreva o motivo..."></div>
+    <div class="fgm"><label class="flm">Data estimada de retomada</label><input type="date" class="fim" id="fu-data"></div>
+    <div class="fgm"><label class="flm">Observação <span style="color:#EF4444">*</span> <span style="font-size:10px;color:#64748B;font-weight:400">(mín. 10 caracteres)</span></label>
+      <textarea class="fim" id="fu-obs" rows="3" placeholder="Ex: Cliente vai vender o apartamento nos próximos 2 meses, retomar contato em julho..." style="resize:none;line-height:1.5"></textarea>
+      <div id="fu-obs-counter" style="font-size:10px;color:#64748B;margin-top:3px">0/10 mín</div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('followup')">Cancelar</button>
+      <button class="btn-p" style="flex:2;justify-content:center;background:rgba(16,185,129,0.15);border-color:rgba(16,185,129,0.3);color:#6EE7B7" id="btn-fu-salvar" onclick="salvarFollowUp()">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Mover para Follow-Up
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-comissao">
+  <div class="modal">
+    <div class="mhd"><div class="mtitle">Atualizar Comissão</div><div class="mclose" onclick="closeModal('comissao')">✕</div></div>
+    <input type="hidden" id="com-lead-id">
+    <div id="com-modal-info" style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.12);border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:12px;color:#94A3B8;line-height:1.8;"></div>
+    <div class="fgm"><label class="flm">Status do pagamento</label>
+      <select class="fsm" id="com-novo-status">
+        <option value="pendente">⏳ Pendente</option>
+        <option value="parcial">🔵 Parcial</option>
+        <option value="pago">✅ Pago</option>
+      </select>
+    </div>
+    <div class="fgm"><label class="flm">Observação</label>
+      <input class="fim" id="com-obs" placeholder="Ex: Pago 50% em 15/05...">
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('comissao')">Cancelar</button>
+      <button class="btn-p" style="flex:2;justify-content:center" onclick="salvarComissao()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-match">
+  <div class="modal" style="max-width:480px">
+    <div class="mhd"><div class="mtitle">🏠 Match de Imóveis</div><div class="mclose" onclick="closeModal('match')">✕</div></div>
+    <div id="match-lead-info" style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.12);border-radius:10px;padding:10px 12px;margin-bottom:14px;font-size:12px;color:#94A3B8;"></div>
+    <div id="match-loading" style="display:none;text-align:center;padding:20px;color:#94A3B8;font-size:12px">
+      <div class="spin" style="display:inline-block;margin-bottom:8px"></div><br>Analisando perfil com IA...
+    </div>
+    <div id="match-results"></div>
+    <div id="match-empty" style="display:none;text-align:center;padding:24px;color:#64748B;font-size:12px">Nenhum imóvel disponível compatível com este lead.</div>
+  </div>
+</div>
+
+<!-- MODAL IMPORTAR LISTA -->
+<div class="modal-ov" id="modal-importar">
+  <div class="modal" style="max-width:520px">
+    <div class="mhd"><div class="mtitle">📥 Importar Lista de Leads</div><div class="mclose" onclick="closeModal('importar')">✕</div></div>
+    <div style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.12);border-radius:10px;padding:12px;margin-bottom:14px;font-size:11px;color:#94A3B8;line-height:1.7">
+      📋 Aceita <strong style="color:#86EFAC">CSV ou Google Sheets</strong><br>
+      Colunas: <strong style="color:#86EFAC">Nome, Email, CPF, Renda</strong><br>
+      Os leads vão para a <strong style="color:#86EFAC">Fila de Distribuição</strong> — você libera quando quiser.
+    </div>
+    <div class="fgm">
+      <label class="flm">Arquivo CSV</label>
+      <input type="file" id="imp-file" accept=".csv" onchange="previewImport(this)" style="display:none">
+      <button onclick="document.getElementById('imp-file').click()" style="width:100%;padding:10px;background:rgba(255,255,255,0.03);border:1px dashed rgba(255,255,255,0.1);border-radius:10px;color:#94A3B8;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif">
+        📂 Escolher arquivo CSV
+      </button>
+    </div>
+    <div style="text-align:center;color:#64748B;font-size:11px;margin:8px 0">— ou —</div>
+    <div class="fgm">
+      <label class="flm">Link do Google Sheets (público)</label>
+      <div style="display:flex;gap:6px">
+        <input class="fim" id="imp-sheets-url" placeholder="https://docs.google.com/spreadsheets/d/..." type="url" style="flex:1">
+        <button class="btn-p" style="white-space:nowrap;padding:0 12px" onclick="buscarSheets()">Buscar</button>
+      </div>
+      <div style="font-size:10px;color:#64748B;margin-top:3px">Compartilhada como "Qualquer pessoa com o link"</div>
+    </div>
+    <div id="imp-preview" style="display:none;margin-bottom:12px">
+      <div style="font-size:10px;color:#94A3B8;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">Preview</div>
+      <div id="imp-preview-table" style="max-height:150px;overflow-y:auto;border:1px solid rgba(255,255,255,0.06);border-radius:10px"></div>
+      <div id="imp-stats" style="font-size:11px;color:#94A3B8;margin-top:8px"></div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('importar')">Cancelar</button>
+      <button class="btn-p" style="flex:2;justify-content:center" id="btn-importar" onclick="enviarParaFila()" disabled>
+        📋 Enviar para Fila
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DISTRIBUIR DA FILA -->
+<div class="modal-ov" id="modal-fila">
+  <div class="modal" style="max-width:500px">
+    <div class="mhd"><div class="mtitle">🎯 Distribuir da Fila</div><div class="mclose" onclick="closeModal('fila')">✕</div></div>
+    <div id="fila-resumo" style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.1);border-radius:10px;padding:12px;margin-bottom:14px;font-size:12px;color:#86EFAC;"></div>
+    <div class="fgm">
+      <label class="flm">Quantidade a distribuir</label>
+      <input class="fim" type="number" id="fila-qtd" min="1" placeholder="Ex: 10" value="10">
+      <div style="font-size:10px;color:#64748B;margin-top:3px">Serão distribuídos em round robin entre os corretores selecionados</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:500;color:#F0FDF4;margin-bottom:10px">Corretores participantes</div>
+      <div id="fila-corretores" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+    <div style="background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.1);border-radius:10px;padding:10px;margin-bottom:12px;font-size:11px;color:#86EFAC">
+      💡 Para adicionar mais leads a um corretor específico depois, use <strong>"Distribuir Extra"</strong> no card do corretor.
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('fila')">Cancelar</button>
+      <button class="btn-s" style="flex:1;border-color:rgba(239,68,68,0.2);color:#FCA5A5;" onclick="limparFila()">🗑 Limpar fila</button>
+      <button class="btn-p" style="flex:2;justify-content:center" id="btn-distribuir" onclick="distribuirDaFila()">
+        🚀 Distribuir agora
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DISTRIBUIR LEADS DA LANDING -->
+<div class="modal-ov" id="modal-fila-landing">
+  <div class="modal" style="max-width:480px">
+    <div class="mhd"><div class="mtitle">📢 Distribuir Leads da Landing</div><div class="mclose" onclick="closeModal('fila-landing')">✕</div></div>
+    <div id="fila-land-resumo" style="background:rgba(255,111,53,0.06);border:1px solid rgba(255,111,53,0.15);border-radius:10px;padding:12px;margin-bottom:14px;font-size:12px;color:#FFB494;"></div>
+    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px;margin-bottom:12px">
+      <div style="font-size:11px;font-weight:500;color:#F0FDF4;margin-bottom:6px">Corretores no rodízio</div>
+      <div style="font-size:10px;color:#64748B;margin-bottom:10px">Os leads serão divididos igualmente, em rodízio, entre os selecionados.</div>
+      <div id="fila-land-corretores" style="display:flex;flex-direction:column;gap:4px"></div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-s" style="flex:1" onclick="closeModal('fila-landing')">Cancelar</button>
+      <button class="btn-p" style="flex:2;justify-content:center" id="btn-distribuir-land" onclick="distribuirLeadsLanding()">
+        🚀 Distribuir agora
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════╗ -->
+<!-- ║       MODAL CDP ASSISTANT           ║ -->
+<!-- ╚══════════════════════════════════════╝ -->
+<div class="modal-ov" id="modal-cdp-assistant">
+  <div class="modal" style="max-width:600px;padding:0;overflow:hidden;">
+
+    <!-- Header -->
+    <div style="padding:18px 22px 0;background:linear-gradient(135deg,#0D1410,#0a1208);border-bottom:1px solid rgba(34,197,94,0.1);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(34,197,94,0.08));border:1px solid rgba(34,197,94,0.3);display:flex;align-items:center;justify-content:center;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22C55E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          </div>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#F0FDF4;letter-spacing:-0.02em">CDP Assistant</div>
+            <div style="font-size:10px;color:#64748B;margin-top:1px">Gere conteúdo com IA em segundos</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <div id="cdpa-lead-ctx" style="display:none;padding:3px 10px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:20px;font-size:10px;color:#86EFAC;"></div>
+          <div class="mclose" onclick="closeModal('cdp-assistant')">✕</div>
+        </div>
+      </div>
+
+      <!-- Abas -->
+      <div style="display:flex;gap:2px;">
+        <button id="cdpa-tab-followup" onclick="cdpaSetTab('followup')" style="padding:8px 16px;border-radius:8px 8px 0 0;font-size:12px;font-weight:500;cursor:pointer;border:none;background:rgba(34,197,94,0.12);color:#86EFAC;font-family:'DM Sans',sans-serif;border-bottom:2px solid #22C55E;transition:all .15s;">💬 Follow-Up</button>
+        <button id="cdpa-tab-post" onclick="cdpaSetTab('post')" style="padding:8px 16px;border-radius:8px 8px 0 0;font-size:12px;font-weight:500;cursor:pointer;border:none;background:transparent;color:#64748B;font-family:'DM Sans',sans-serif;border-bottom:2px solid transparent;transition:all .15s;">📢 Post de Lançamento</button>
+      </div>
+    </div>
+
+    <!-- Corpo -->
+    <div style="padding:20px 22px;overflow-y:auto;max-height:calc(90vh - 140px);">
+
+      <!-- ABA: FOLLOW-UP -->
+      <div id="cdpa-panel-followup">
+        <!-- Contexto do lead (preenchido auto se vier de um lead) -->
+        <div id="cdpa-fu-lead-info" style="display:none;background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.12);border-radius:10px;padding:12px 14px;margin-bottom:14px;">
+          <div style="font-size:10px;color:#86EFAC;font-weight:500;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;">Lead em contexto</div>
+          <div id="cdpa-fu-lead-dados" style="font-size:12px;color:#A7C4AE;line-height:1.7;"></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+          <div>
+            <label style="display:block;font-size:11px;font-weight:500;color:#94A3B8;margin-bottom:5px;">Nome do cliente</label>
+            <input id="cdpa-fu-nome" class="fim" placeholder="Ex: João Silva" style="width:100%">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:500;color:#94A3B8;margin-bottom:5px;">Estágio no funil</label>
+            <select id="cdpa-fu-estagio" class="fsm" style="width:100%">
+              <option value="Lead Novo">Lead Novo</option>
+              <option value="Primeiro Contato">Primeiro Contato</option>
+              <option value="Em Atendimento">Em Atendimento</option>
+              <option value="Qualificado">Qualificado</option>
+              <option value="Visita Marcada">Visita Marcada realizada</option>
+              <option value="Proposta">Proposta enviada</option>
+              <option value="Follow-Up">Em Follow-Up (esfriou)</option>
+              <option value="Perdido">Lead perdido (recuperar)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+          <div>
+            <label style="display:block;font-size:11px;font-weight:500;color:#94A3B8;margin-bottom:5px;">Imóvel de interesse</label>
+            <input id="cdpa-fu-imovel" class="fim" placeholder="Ex: Cyrela Downtown, 2 dorms" style="width:100%">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:500;color:#94A3B8;margin-bottom:5px;">Tom da mensagem</label>
+            <select id="cdpa-fu-tom" class="fsm" style="width:100%">
+              <option value="consultivo">🤝 Consultivo (profissional)</option>
+              <option value="descontraido">😊 Descontraído (amigável)</option>
+              <option value="urgencia">⚡ Urgência (escassez)</option>
+              <option value="curiosidade">🎯 Curiosidade (pergunta)</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <label style="display:block;font-size:11px;font-weight:500;color:#94A3B8;margin-bottom:5px;">Contexto adicional <span style="font-weight:400;color:#64748B">(opcional)</span></label>
+          <textarea id="cdpa-fu-ctx" class="fim" rows="2" placeholder="Ex: visitou o stand semana passada, achou o preço alto, tem renda familiar de R$8k..." style="resize:none;width:100%;line-height:1.5"></textarea>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-bottom:16px;">
+          <button onclick="cdpaGerarFollowUp()" id="btn-cdpa-fu" style="flex:1;padding:10px;background:#22C55E;color:#000;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity .15s;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            Gerar mensagem com IA
+          </button>
+        </div>
+
+        <!-- Resultado follow-up -->
+        <div id="cdpa-fu-resultado" style="display:none;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+            <div style="font-size:10px;font-weight:500;color:#86EFAC;text-transform:uppercase;letter-spacing:.06em;">✨ Mensagem gerada</div>
+            <div style="display:flex;gap:6px;">
+              <button onclick="cdpaNovaVersaoFU()" style="padding:4px 10px;background:transparent;border:1px solid rgba(34,197,94,0.2);border-radius:6px;color:#86EFAC;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;">🔄 Nova versão</button>
+              <button onclick="cdpaCopiar('cdpa-fu-output')" style="padding:4px 10px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:6px;color:#86EFAC;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;">📋 Copiar</button>
+            </div>
+          </div>
+          <div id="cdpa-fu-output" contenteditable="true" style="background:#080C0A;border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:14px;font-size:12.5px;color:#A7C4AE;line-height:1.8;min-height:80px;outline:none;white-space:pre-wrap;word-break:break-word;cursor:text;" onfocus="this.style.borderColor='rgba(34,197,94,0.35)'" onblur="this.style.borderColor='rgba(34,197,94,0.15)'"></div>
+          <div style="margin-top:8px;font-size:10px;color:#64748B;">💡 Clique no texto para editar antes de copiar</div>
+        </div>
+
+        <!-- Loading FU -->
+        <div id="cdpa-fu-loading" style="display:none;text-align:center;padding:24px;color:#64748B;font-size:12px;">
+          <div style="width:28px;height:28px;border:2px solid rgba(34,197,94,0.2);border-top-color:#22C55E;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px;"></div>
+          Gerando mensagem personalizada...
+        </div>
+      </div>
+
+      <!-- ABA: POST LANÇAMENTO -->
+      <div id="cdpa-panel-post" style="display:none;">
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+          <div>
+            <label style="display:block;font-size:11px;font-weight:500;color:#94A3B8;margin-bottom:5px;">Nome do empreendimento</label>
+            <select id="cdpa-post-imovel" class="fsm" onchange="cdpaPreencherImovelPost(this.value)" style="width:100%">
+              <option value="">Selecione ou digite abaixo...</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:500;color:#94A3B8;margin-bottom:5px;">Ou informe o nome</label>
+            <input id="cdpa-post-nome" class="fim" placeholder="Ex: Cyrela Downtown Curitiba" style="width:100%">
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+          <div>
+            <label style="display:block;font-size:11px;font-weight:500;color:#94A3B8;margin-bottom:5px;">Destino do post</label>
+            <select id="cdpa-post-destino" class="fsm" style="width:100%">
+              <option value="instagram">📷 Instagram (legenda + hashtags)</option>
+              <option value="whatsapp">💬 WhatsApp (mensagem de grupo)</option>
+              <option value="ambos">✨ Ambos</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:500;color:#94A3B8;margin-bottom:5px;">Foco do conteúdo</label>
+            <select id="cdpa-post-foco" class="fsm" style="width:100%">
+              <option value="lancamento">🚀 Lançamento / novidade</option>
+              <option value="beneficios">✅ Benefícios e diferenciais</option>
+              <option value="financiamento">💰 Facilidade de financiamento</option>
+              <option value="localizacao">📍 Localização e bairro</option>
+              <option value="urgencia">⏰ Urgência / últimas unidades</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="display:block;font-size:11px;font-weight:500;color:#94A3B8;margin-bottom:5px;">Detalhes do imóvel <span style="font-weight:400;color:#64748B">(opcional — enriquece o conteúdo)</span></label>
+          <textarea id="cdpa-post-detalhes" class="fim" rows="2" placeholder="Ex: 2 e 3 dorms, a partir de R$450k, Batel, piscina, academia, entrega 2027..." style="resize:none;width:100%;line-height:1.5"></textarea>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-bottom:16px;">
+          <button onclick="cdpaGerarPost()" id="btn-cdpa-post" style="flex:1;padding:10px;background:#22C55E;color:#000;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity .15s;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+            Gerar post com IA
+          </button>
+        </div>
+
+        <!-- Resultado post -->
+        <div id="cdpa-post-resultado" style="display:none;">
+
+          <!-- Instagram -->
+          <div id="cdpa-post-insta-wrap" style="display:none;margin-bottom:14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div style="font-size:10px;font-weight:500;color:#A78BFA;text-transform:uppercase;letter-spacing:.06em;">📷 Instagram</div>
+              <button onclick="cdpaCopiar('cdpa-post-insta')" style="padding:4px 10px;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.25);border-radius:6px;color:#A78BFA;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;">📋 Copiar</button>
+            </div>
+            <div id="cdpa-post-insta" contenteditable="true" style="background:#080C0A;border:1px solid rgba(167,139,250,0.15);border-radius:10px;padding:14px;font-size:12px;color:#A7C4AE;line-height:1.8;min-height:60px;outline:none;white-space:pre-wrap;word-break:break-word;" onfocus="this.style.borderColor='rgba(167,139,250,0.4)'" onblur="this.style.borderColor='rgba(167,139,250,0.15)'"></div>
+          </div>
+
+          <!-- WhatsApp -->
+          <div id="cdpa-post-wpp-wrap" style="display:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+              <div style="font-size:10px;font-weight:500;color:#86EFAC;text-transform:uppercase;letter-spacing:.06em;">💬 WhatsApp</div>
+              <button onclick="cdpaCopiar('cdpa-post-wpp')" style="padding:4px 10px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:6px;color:#86EFAC;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;">📋 Copiar</button>
+            </div>
+            <div id="cdpa-post-wpp" contenteditable="true" style="background:#080C0A;border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:14px;font-size:12px;color:#A7C4AE;line-height:1.8;min-height:60px;outline:none;white-space:pre-wrap;word-break:break-word;" onfocus="this.style.borderColor='rgba(34,197,94,0.35)'" onblur="this.style.borderColor='rgba(34,197,94,0.15)'"></div>
+          </div>
+
+          <div style="margin-top:8px;display:flex;gap:8px;">
+            <button onclick="cdpaNovaVersaoPost()" style="padding:5px 12px;background:transparent;border:1px solid rgba(255,255,255,0.08);border-radius:6px;color:#94A3B8;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;">🔄 Nova versão</button>
+          </div>
+        </div>
+
+        <!-- Loading POST -->
+        <div id="cdpa-post-loading" style="display:none;text-align:center;padding:24px;color:#64748B;font-size:12px;">
+          <div style="width:28px;height:28px;border:2px solid rgba(34,197,94,0.2);border-top-color:#22C55E;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 10px;"></div>
+          Criando conteúdo para o lançamento...
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toast-wrap"></div>
+

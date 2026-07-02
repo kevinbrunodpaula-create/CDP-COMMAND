@@ -1,0 +1,12 @@
+    <!-- CORRETORES -->
+    <div class="page" id="page-corretores">
+      <div class="corr-toolbar">
+        <div class="sw" style="max-width:220px"><span class="si-pos">🔍</span><input type="text" class="s-inp" id="search-corr" placeholder="Buscar..." oninput="filterCorretores()"></div>
+        <select class="fsel" id="filter-nivel" onchange="filterCorretores()"><option value="">Todos os níveis</option><option value="CEO">CEO</option><option value="Diretor">Diretor</option><option value="Gerente">Gerente</option><option value="Corretor">Corretor</option><option value="Assistente">Assistente</option></select>
+        <span class="corr-count" id="corr-count">0 membros</span>
+        <button class="btn-p" onclick="openModal('add-corretor')">+ Novo Membro</button>
+      </div>
+      <div class="corr-hier" id="corr-hier"></div>
+      <div class="corr-grid" id="corr-grid"></div>
+    </div>
+

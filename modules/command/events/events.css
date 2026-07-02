@@ -1,0 +1,391 @@
+/**
+ * CDP — COMMAND EVENTS ENGINE
+ * Estilos da tela Events
+ * SPR-001 · KR7 Command
+ */
+
+/* ─────────────────────────────────────────────
+   CONTAINER PRINCIPAL
+───────────────────────────────────────────── */
+.ev-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ─────────────────────────────────────────────
+   HEADER DA TELA
+───────────────────────────────────────────── */
+.ev-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.ev-header-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ev-header-icon svg {
+  width: 15px;
+  height: 15px;
+  stroke: #22C55E;
+  stroke-width: 1.6;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ev-header-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.ev-header-sub {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 1px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.04em;
+}
+
+.ev-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22C55E;
+  animation: pulse 2.5s ease infinite;
+  flex-shrink: 0;
+}
+
+/* ─────────────────────────────────────────────
+   FILTROS
+───────────────────────────────────────────── */
+.ev-filters {
+  background: var(--bg-card);
+  border: 1px solid rgba(34, 197, 94, 0.07);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ev-filters-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ev-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.ev-filter-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ev-filter-select,
+.ev-filter-input {
+  width: 100%;
+  padding: 7px 10px;
+  background: var(--bg-input);
+  border: 1px solid rgba(34, 197, 94, 0.08);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.ev-filter-select:focus,
+.ev-filter-input:focus {
+  border-color: rgba(34, 197, 94, 0.35);
+}
+
+.ev-filter-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 10 10'%3E%3Cpath fill='%23334155' d='M5 7L0 2h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+  cursor: pointer;
+}
+
+.ev-filter-input::placeholder { color: var(--text-placeholder); }
+
+.ev-filters-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.ev-btn-filter {
+  padding: 7px 16px;
+  background: #22C55E;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  letter-spacing: -0.01em;
+}
+
+.ev-btn-filter:hover { opacity: 0.85; }
+
+.ev-btn-clear {
+  padding: 7px 14px;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.ev-btn-clear:hover { color: var(--text-secondary); border-color: rgba(255, 255, 255, 0.12); }
+
+.ev-count-label {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  font-family: 'DM Mono', monospace;
+}
+
+/* ─────────────────────────────────────────────
+   ESTADO DE CARREGAMENTO / VAZIO / ERRO
+───────────────────────────────────────────── */
+.ev-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 48px 24px;
+  color: var(--text-placeholder);
+  text-align: center;
+}
+
+.ev-state-icon { font-size: 28px; opacity: 0.5; }
+.ev-state-title { font-size: 13px; font-weight: 500; color: var(--text-tertiary); }
+.ev-state-sub { font-size: 11px; color: var(--text-placeholder); line-height: 1.6; max-width: 240px; }
+
+.ev-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(34, 197, 94, 0.15);
+  border-top-color: #22C55E;
+  border-radius: 50%;
+  animation: ev-spin 0.8s linear infinite;
+}
+
+@keyframes ev-spin { to { transform: rotate(360deg); } }
+
+/* ─────────────────────────────────────────────
+   LISTA DE EVENTOS
+───────────────────────────────────────────── */
+.ev-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ─────────────────────────────────────────────
+   CARD DE EVENTO
+───────────────────────────────────────────── */
+.ev-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(34, 197, 94, 0.06);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  transition: border-color 0.15s, background 0.15s;
+  cursor: default;
+}
+
+.ev-card:hover {
+  background: var(--bg-card-hi);
+  border-color: rgba(34, 197, 94, 0.14);
+}
+
+/* ── Ícone do tipo ── */
+.ev-card-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Corpo ── */
+.ev-card-body { flex: 1; min-width: 0; }
+
+.ev-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+}
+
+.ev-card-desc {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-title);
+  letter-spacing: -0.01em;
+  flex: 1;
+  line-height: 1.4;
+  min-width: 0;
+}
+
+.ev-card-time {
+  font-size: 10px;
+  color: var(--text-placeholder);
+  white-space: nowrap;
+  font-family: 'DM Mono', monospace;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.ev-card-tags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.ev-tag {
+  font-size: 9.5px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 5px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* cores por categoria de tipo */
+.ev-tag-lead     { background: rgba(34, 197, 94, 0.08);  color: #86EFAC; border: 1px solid rgba(34, 197, 94, 0.15); }
+.ev-tag-sale     { background: rgba(34, 197, 94, 0.18);  color: #4ADE80; border: 1px solid rgba(34, 197, 94, 0.3);  }
+.ev-tag-lost     { background: rgba(239, 68, 68, 0.08);  color: #FCA5A5; border: 1px solid rgba(239, 68, 68, 0.15); }
+.ev-tag-contact  { background: rgba(14, 165, 233, 0.08); color: #7DD3FC; border: 1px solid rgba(14, 165, 233, 0.15);}
+.ev-tag-visit    { background: rgba(245, 158, 11, 0.08); color: #FCD34D; border: 1px solid rgba(245, 158, 11, 0.15);}
+.ev-tag-auth     { background: rgba(148, 163, 184, 0.06);color: var(--text-secondary); border: 1px solid rgba(148, 163, 184, 0.12);}
+.ev-tag-system   { background: rgba(139, 92, 246, 0.08); color: #C4B5FD; border: 1px solid rgba(139, 92, 246, 0.15);}
+.ev-tag-import   { background: rgba(251, 146, 60, 0.08); color: #FED7AA; border: 1px solid rgba(251, 146, 60, 0.15); }
+
+/* tag de módulo */
+.ev-tag-modulo {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-tertiary);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: 'DM Mono', monospace;
+}
+
+/* tag de origem */
+.ev-tag-origem {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: 'DM Mono', monospace;
+  background: rgba(34, 197, 94, 0.04);
+  color: rgba(34, 197, 94, 0.5);
+  border: 1px solid rgba(34, 197, 94, 0.08);
+}
+
+.ev-card-meta {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+.ev-card-meta span + span::before {
+  content: ' · ';
+  color: #1F2937;
+}
+
+.ev-card-details {
+  font-size: 11px;
+  color: var(--text-placeholder);
+  margin-top: 4px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────
+   PAGINAÇÃO / LOAD MORE
+───────────────────────────────────────────── */
+.ev-load-more {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.ev-btn-more {
+  padding: 8px 20px;
+  background: transparent;
+  color: #22C55E;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.ev-btn-more:hover {
+  background: rgba(34, 197, 94, 0.06);
+  border-color: rgba(34, 197, 94, 0.35);
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVO
+───────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .ev-filters-row { flex-direction: column; }
+  .ev-filter-group { min-width: 100%; }
+  .ev-card-top { flex-direction: column; gap: 4px; }
+  .ev-card-time { align-self: flex-start; }
+}

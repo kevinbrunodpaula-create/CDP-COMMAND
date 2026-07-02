@@ -1,0 +1,10 @@
+    <!-- IMOVEIS -->
+    <div class="page" id="page-imoveis">
+      <div class="search-row">
+        <div class="sw"><span class="si-pos">🔍</span><input type="text" class="s-inp" id="search-imovel" placeholder="Buscar imóvel..." oninput="filterImoveis()"></div>
+        <select class="fsel" id="filter-im-status" onchange="filterImoveis()"><option value="">Todos status</option><option>Disponível</option><option>Reservado</option><option>Vendido</option></select>
+        <button class="btn-p" onclick="openModal('add-imovel')">+ Novo Imóvel</button>
+      </div>
+      <div class="im-grid" id="imoveis-grid"></div>
+    </div>
+
